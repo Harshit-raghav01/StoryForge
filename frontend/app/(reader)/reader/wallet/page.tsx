@@ -8,7 +8,7 @@ export default function WalletPage() {
   const unlocks = transactions.filter((t) => t.type === 'chapter_unlock');
 
   return (
-    <div>
+    <div className='mt-4'>
       <h1 className="font-display text-2xl md:text-3xl font-semibold text-text-primary mb-8">Wallet</h1>
 
       {/* Balance card */}

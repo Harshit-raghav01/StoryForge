@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function HistoryPage() {
   return (
-    <div>
+    <div className='mt-4'>
       <h1 className="font-display text-2xl md:text-3xl font-semibold text-text-primary mb-8">Reading History</h1>
       {readingHistory.length === 0 ? (
         <div className="text-center py-20">

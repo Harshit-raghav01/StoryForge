@@ -1,6 +1,6 @@
 'use client';
 
-/** WaxSealIcon — The signature Inkveil motif: a wax seal with "I" monogram.
+/** WaxSealIcon — The signature StoryForge motif: a wax seal with "S" monogram.
  *  Used on coin/wallet icons, unlock buttons, and as a brand mark. */
 export function WaxSealIcon({ size = 32, className = '' }: { size?: number; className?: string }) {
   return (
@@ -11,7 +11,7 @@ export function WaxSealIcon({ size = 32, className = '' }: { size?: number; clas
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
-      aria-label="Inkveil wax seal"
+      aria-label="StoryForge wax seal"
     >
       {/* Outer seal shape — irregular wax blob */}
       <path

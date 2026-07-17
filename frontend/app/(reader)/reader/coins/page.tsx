@@ -15,7 +15,7 @@ export default function CoinsPage() {
 
   return (
     <div>
-      <div className="mb-8">
+      <div className="mb-8 mt-4">
         <h1 className="font-display text-2xl md:text-3xl font-semibold text-text-primary">Buy coins</h1>
         <p className="text-text-secondary font-body text-sm mt-1">
           Current balance: <span className="font-mono font-bold text-accent">{wallet.coinBalance}</span> coins

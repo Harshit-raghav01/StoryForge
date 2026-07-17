@@ -17,7 +17,7 @@ export default function ReaderDashboardPage() {
 
   return (
     <div>
-      <div className="mb-8">
+      <div className="mb-8 mt-4">
         <h1 className="font-display text-2xl md:text-3xl font-semibold text-text-primary">My Library</h1>
         <p className="text-text-secondary font-body text-sm mt-1">{libraryEntries.length} books saved</p>
       </div>

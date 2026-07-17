@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+#StoryForge
 
-## Getting Started
+StoryForge is a modern digital publishing platform built for authors, readers and administrators.
 
-First, run the development server:
+It enables authors to publish serialized novels, readers to unlock premium chapters using a virtual coin system and administrators to manage the entire publishing ecosystem.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+#Current Status
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🚧 Prototype (Frontend)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#Backend is under development.
+Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+✅ Responsive UI
 
-## Learn More
+✅ Dark Mode
 
-To learn more about Next.js, take a look at the following resources:
+✅ Reader Dashboard
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+✅ Author Dashboard
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+✅ Admin Dashboard
 
-## Deploy on Vercel
+✅ Book Discovery
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+✅ Reading Experience
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+🚧 Wallet
+
+🚧 Authentication
+
+🚧 Payments
+
+🚧 Analytics
+
+#Tech Stack
+
+Next.js
+
+TypeScript
+
+TailwindCSS
+
+Framer Motion
+
+React Query
+
+Node.js
+
+Express
+
+MongoDB
+
+JWT
+
+Cloudinary
+
+Razorpay

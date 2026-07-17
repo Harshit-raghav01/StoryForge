@@ -25,7 +25,7 @@ const fadeUp: Variants = { initial: { opacity: 0, y: 28 }, animate: { opacity: 1
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col">
+    <div className="flex  flex-col">
 
       {/* ─── HERO SWIPER ───────────────────────────────────────────────── */}
       <section className="relative overflow-hidden">
@@ -131,7 +131,7 @@ export default function HomePage() {
 
                   <p className="text-white/60 font-body text-base md:text-lg leading-relaxed mb-10 max-w-xl mx-auto">
                     Publish your werewolf saga, dark romance, fantasy epic, or any story living rent-free in your head.
-                    Inkveil gives you the tools — readers, chapters, coins &amp; royalties.
+                    StoryForge gives you the tools — readers, chapters, coins &amp; royalties.
                   </p>
 
                   {/* Feature pills */}
@@ -286,7 +286,7 @@ export default function HomePage() {
       <section className="container-page section-y">
         <motion.div variants={stagger} initial="initial" whileInView="animate" viewport={{ once: true }}>
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <h2 className="font-display text-2xl md:text-3xl font-semibold text-text-primary mb-3">How Inkveil works</h2>
+            <h2 className="font-display text-2xl md:text-3xl font-semibold text-text-primary mb-3">How StoryForge works</h2>
             <p className="text-text-secondary font-body max-w-xl mx-auto leading-relaxed">
               Read the first chapters free. Unlock more with coins. Your unlocked stories stay with you forever.
             </p>

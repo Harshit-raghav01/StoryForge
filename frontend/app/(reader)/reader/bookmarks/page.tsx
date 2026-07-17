@@ -5,7 +5,7 @@ import { bookmarks, books } from '@/lib/mockData';
 export default function BookmarksPage() {
   const bookmarkEntries = bookmarks.map((bm) => ({ bm, book: books.find((b) => b._id === bm.bookId) }));
   return (
-    <div>
+    <div className='mt-4'>
       <h1 className="font-display text-2xl md:text-3xl font-semibold text-text-primary mb-8">Bookmarks</h1>
       {bookmarkEntries.length === 0 ? (
         <div className="text-center py-20"><span className="text-5xl">🔖</span><p className="font-body text-text-secondary mt-4">No bookmarks yet.</p></div>

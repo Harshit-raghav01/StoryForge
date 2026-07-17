@@ -25,13 +25,13 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: { default: "Inkveil — Stories worth staying up for", template: "%s | Inkveil" },
+  title: { default: "StoryForge — Stories worth staying up for", template: "%s | StoryForge" },
   description:
-    "Inkveil is a web-first digital fiction platform where authors serialize novels chapter-by-chapter and readers unlock stories using a coin economy. Romance, fantasy, dark fiction, and more.",
+    "StoryForge is a web-first digital fiction platform where authors serialize novels chapter-by-chapter and readers unlock stories using a coin economy. Romance, fantasy, dark fiction, and more.",
   keywords: ["fiction", "romance", "fantasy", "werewolf", "serial fiction", "online novels", "reading"],
   openGraph: {
-    title: "Inkveil — Stories worth staying up for",
-    description: "Read and publish serialized fiction on Inkveil.",
+    title: "StoryForge — Stories worth staying up for",
+    description: "Read and publish serialized fiction on StoryForge.",
     type: "website",
   },
 };

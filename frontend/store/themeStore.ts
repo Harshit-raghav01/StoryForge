@@ -12,14 +12,14 @@ export const useThemeStore = create<ThemeState>((set) => ({
     set((state) => {
       const next = state.theme === 'light' ? 'dark' : 'light';
       if (typeof window !== 'undefined') {
-        localStorage.setItem('inkveil-theme', next);
+        localStorage.setItem('storyforge-theme', next);
         document.documentElement.setAttribute('data-theme', next);
       }
       return { theme: next };
     }),
   setTheme: (theme) => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('inkveil-theme', theme);
+      localStorage.setItem('storyforge-theme', theme);
       document.documentElement.setAttribute('data-theme', theme);
     }
     set({ theme });

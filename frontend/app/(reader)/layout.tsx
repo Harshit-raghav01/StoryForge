@@ -21,7 +21,7 @@ export default function ReaderLayout({ children }: { children: React.ReactNode }
       <Navbar />
       <div className="container-page py-8 flex flex-col md:flex-row gap-8">
         {/* Sidebar */}
-        <aside className="shrink-0 w-full md:w-56">
+        <aside className="shrink-0 py-4 w-full md:w-56">
           {/* Wallet balance */}
           <div className="mb-5 p-4 rounded-card bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20">
             <p className="text-xs font-body text-text-secondary mb-1">Coin balance</p>

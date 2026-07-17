@@ -15,7 +15,7 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-3">
               <WaxSealIcon size={28} />
-              <span className="font-display font-semibold text-lg text-text-primary">Inkveil</span>
+              <span className="font-display font-semibold text-lg text-text-primary">StoryForge</span>
             </Link>
             <p className="text-sm text-text-secondary leading-relaxed font-body">
               Stories worth staying up for.
@@ -79,7 +79,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs font-body text-text-secondary">
-            © 2026 Inkveil. All rights reserved.
+            © 2026 StoryForge. All rights reserved.
           </p>
           <p className="text-xs font-body text-text-secondary">
             A web-first digital fiction platform. No app downloads required.

@@ -1,78 +1,58 @@
-# Inkveil — Digital Publications Platform
+#StoryForge
 
-> A Phase 0 frontend prototype for **Inkveil**, a coin-gated web novel platform for Indian readers and independent authors. Built with Next.js 15, TypeScript, Tailwind CSS v4, Framer Motion, and Zustand.
+StoryForge is a modern digital publishing platform built for authors, readers and administrators.
 
----
+It enables authors to publish serialized novels, readers to unlock premium chapters using a virtual coin system and administrators to manage the entire publishing ecosystem.
 
-## ✨ Live Features
+#Current Status
 
-| Area | Routes |
-|---|---|
-| 🏠 Public | `/` · `/browse` · `/book/[id]` · `/book/[id]/read/[chapterId]` |
-| 🔐 Auth | `/login` · `/register` (with demo role bypass) |
-| 📖 Reader | `/reader/dashboard` · `/reader/wallet` · `/reader/coins` · `/reader/history` · `/reader/bookmarks` |
-| ✍️ Author | `/author/dashboard` · `/author/books` · `/author/books/create` · `/author/books/[id]/editor` · `/author/earnings` |
-| 🛡️ Admin | `/admin/dashboard` · `/admin/users` · `/admin/authors` · `/admin/books` · `/admin/coinpacks` · `/admin/transactions` · `/admin/reports` · `/admin/offers` · `/admin/settings` |
+🚧 Prototype (Frontend)
 
-## 🎭 Demo Login
+#Backend is under development.
+Features
 
-On `/login` or `/register`, scroll to the **✦ Demo Login** section and click any role:
+✅ Responsive UI
 
-- **📖 Reader** → `/reader/dashboard`
-- **✍️ Author** → `/author/dashboard`
-- **🛡️ Admin** → `/admin/dashboard`
+✅ Dark Mode
 
-No account needed — all data is mock/fake.
+✅ Reader Dashboard
 
----
+✅ Author Dashboard
 
-## 🛠 Tech Stack
+✅ Admin Dashboard
 
-| Layer | Tech |
-|---|---|
-| Framework | Next.js 15 (App Router) |
-| Language | TypeScript |
-| Styling | Tailwind CSS v4 (CSS-first) |
-| Animation | Framer Motion |
-| State | Zustand |
-| Forms | React Hook Form + Zod |
-| Editor | Tiptap |
-| Slider | Swiper.js |
+✅ Book Discovery
 
-## 🎨 Design System
+✅ Reading Experience
 
-- **Primary:** Gold amber `#C9952A`
-- **Accent:** Pure gold `#D4AF37`
-- **Fonts:** Fraunces (display) · Public Sans (body) · Space Mono (numbers)
-- **Themes:** Light (warm cream) · Dark (dark ink)
+🚧 Wallet
 
----
+🚧 Authentication
 
-## 🚀 Getting Started
+🚧 Payments
 
-```bash
-cd frontend
-npm install
-npm run dev
-```
+🚧 Analytics
 
-Open [http://localhost:3000](http://localhost:3000)
+#Tech Stack
 
-## 📁 Project Structure
+Next.js
 
-```
-frontend/
-├── app/
-│   ├── (public)/          # Home, Browse, Book detail, Login, Register
-│   ├── (reader)/reader/   # Reader dashboard & sub-pages
-│   ├── (author)/author/   # Author dashboard & sub-pages
-│   └── (admin)/admin/     # Admin dashboard & sub-pages
-├── components/            # Shared UI components
-├── lib/
-│   └── mockData.ts        # All fake data (no backend)
-└── store/                 # Zustand stores
-```
+TypeScript
 
----
+TailwindCSS
 
-> **Phase 0 — Frontend only. No backend, no real auth, no payments.**
+Framer Motion
+
+React Query
+
+Node.js
+
+Express
+
+MongoDB
+
+JWT
+
+Cloudinary
+
+Razorpay

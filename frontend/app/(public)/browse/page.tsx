@@ -27,7 +27,7 @@ function FilterSidebar({
   onClear: () => void; hasFilters: boolean;
 }) {
   return (
-    <div className="bg-surface py-4 rounded-card border border-border p-5 space-y-6">
+    <div className="bg-surface rounded-card border border-border p-5 space-y-6">
       {/* Genre */}
       <div>
         <h3 className="text-xs font-semibold font-body uppercase tracking-wider text-text-secondary mb-3">Genre</h3>
@@ -116,7 +116,7 @@ function BrowseContent() {
   return (
     <div className="container-page py-10 pb-16">
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-8 mt-8 ">
         <h1 className="font-display text-3xl md:text-4xl font-semibold text-text-primary">
           {genre ? `${genre.charAt(0).toUpperCase() + genre.slice(1)} stories` : 'Browse all stories'}
         </h1>
@@ -154,7 +154,7 @@ function BrowseContent() {
       </div>
 
       {/* Body: sidebar (desktop always visible) + results */}
-      <div className="flex gap-8">
+      <div className="flex pb-8 gap-8">
         {/* Desktop sidebar — always in layout, never collapses */}
         <aside className="hidden sm:block shrink-0 w-56">
           <div className="sticky top-24">

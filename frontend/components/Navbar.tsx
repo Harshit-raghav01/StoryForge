@@ -35,7 +35,7 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0" id="nav-logo">
             <WaxSealIcon size={30} />
-            <span className="font-display font-semibold text-xl text-text-primary tracking-tight">Inkveil</span>
+            <span className="font-display font-semibold text-xl text-text-primary tracking-tight">StoryForge</span>
           </Link>
 
           {/* Desktop nav */}
@@ -134,7 +134,7 @@ export function Navbar() {
               <div className="flex items-center justify-between px-5 py-4 border-b border-border">
                 <div className="flex items-center gap-2">
                   <WaxSealIcon size={26} />
-                  <span className="font-display font-semibold text-lg text-text-primary">Inkveil</span>
+                  <span className="font-display font-semibold text-lg text-text-primary">StoryForge</span>
                 </div>
                 <button
                   onClick={() => setMobileOpen(false)}
