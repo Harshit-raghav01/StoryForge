@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap');
+@import "tailwindcss";
+
+
+/* ============================================================
+   Inkveil Design Tokens — Gold / Amber Edition
+   ============================================================ */
+
+/* Brand colors — shared across both modes */
+:root {
+  --color-primary:     #C9952A;   /* Gold amber — main CTA, links */
+  --color-primary-pop: #E8B84B;   /* Lighter hover gold */
+  --color-accent:      #D4AF37;   /* Pure gold — coins, ratings, highlights */
+  --color-support:     #A0522D;   /* Sienna — genre badges */
+  --color-success:     #4F7D5C;   /* Forest green */
+  --color-danger:      #C0392B;   /* Deep red */
+}
+
+/* Light mode */
+:root,
+[data-theme="light"] {
+  --bg:           #FAF8F3;    /* Warm cream */
+  --surface:      #FFFFFF;
+  --surface-alt:  #F5F1EA;    /* Parchment */
+  --text-primary: #1C1810;    /* Dark ink */
+  --text-secondary:#5A4E3A;   /* Warm brown-grey */
+  --border:       #E8DFD0;    /* Warm border */
+  --shadow:       rgba(180, 140, 60, 0.12);
+  color-scheme: light;
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+  --bg:           #12100D;    /* Near-black ink */
+  --surface:      #1E1A14;    /* Dark parchment */
+  --surface-alt:  #262119;    /* Slightly lighter */
+  --text-primary: #F5EDD8;    /* Warm cream text */
+  --text-secondary:#A89878;   /* Muted gold-brown */
+  --border:       #332E24;    /* Dark warm border */
+  --shadow:       rgba(0, 0, 0, 0.50);
+  color-scheme: dark;
+}
+
+/* ============================================================
+   Tailwind v4 theme extension
+   ============================================================ */
+@theme inline {
+  --color-primary:      var(--color-primary);
+  --color-primary-pop:  var(--color-primary-pop);
+  --color-accent:       var(--color-accent);
+  --color-support:      var(--color-support);
+  --color-success:      var(--color-success);
+  --color-danger:       var(--color-danger);
+  --color-bg:           var(--bg);
+  --color-surface:      var(--surface);
+  --color-surface-alt:  var(--surface-alt);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary:var(--text-secondary);
+  --color-border:       var(--border);
+
+  /* Fonts */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body:    "Public Sans", system-ui, sans-serif;
+  --font-mono:    "Space Mono", "Courier New", monospace;
+
+  /* Border Radius */
+  --radius-card:  16px;
+  --radius-input: 10px;
+  --radius-pill:  999px;
+
+  /* Shadows */
+  --shadow-soft:     0 2px 12px var(--shadow);
+  --shadow-card:     0 4px 24px var(--shadow);
+  --shadow-elevated: 0 8px 40px var(--shadow);
+}
+
+/* ============================================================
+   Base Styles
+   ============================================================ */
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--surface-alt);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Selection */
+::selection {
+  background: var(--color-primary-pop);
+  color: white;
+}
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid var(--color-primary-pop);
+  outline-offset: 2px;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   Tiptap Editor Styles
+   ============================================================ */
+.tiptap {
+  outline: none;
+  min-height: 400px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-primary);
+}
+.tiptap p {
+  margin-bottom: 0.75em;
+}
+.tiptap h1, .tiptap h2, .tiptap h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin: 1.5em 0 0.5em;
+}
+.tiptap h1 { font-size: 1.75rem; }
+.tiptap h2 { font-size: 1.4rem; }
+.tiptap h3 { font-size: 1.15rem; }
+.tiptap ul, .tiptap ol {
+  padding-left: 1.5em;
+  margin-bottom: 0.75em;
+}
+.tiptap li { margin-bottom: 0.25em; }
+.tiptap strong { font-weight: 700; }
+.tiptap em { font-style: italic; }
+.tiptap p.is-editor-empty:first-child::before {
+  color: var(--text-secondary);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* ============================================================
+   Utility classes
+   ============================================================ */
+.container-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Standard section vertical padding */
+.section-y {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+/* Card inner padding */
+.card-pad {
+  padding: 1.5rem;
+}
+
+.font-mono-nums {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Gradient text */
+.gradient-gold {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-primary-pop) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
