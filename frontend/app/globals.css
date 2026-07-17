@@ -205,13 +205,12 @@ h1, h2, h3, h4, h5, h6 {
   height: 48px;
   border-radius: 9999px;
 
-  background: color-mix(in srgb, var(--surface) 75%, transparent);
+  background: rgba(20, 20, 20, 0.65);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255,255,255,0.08);
 
-  color: var(--color-primary);
+  color: #D4A62A;
 
   transition: all .25s ease;
 
@@ -229,21 +228,29 @@ h1, h2, h3, h4, h5, h6 {
 
 .hero-swiper .swiper-button-next:hover,
 .hero-swiper .swiper-button-prev:hover{
-  background: var(--color-primary);
-  color: var(--surface);
-  border-color: var(--color-primary);
+  background: #D4A62A;
+  color: #111;
 }
 
 .hero-swiper .swiper-button-next::after,
 .hero-swiper .swiper-button-prev::after{
-  font-size: 14px;
-  font-weight: 700;
+  font-size:18px;
+  font-weight:700;
 }
 
 .hero-swiper .swiper-button-prev{
-  left: 24px;
+  left:24px;
+  
 }
 
 .hero-swiper .swiper-button-next{
-  right: 24px;
+  right:24px;
+  
+}
+
+
+
+.hero-swiper .swiper-button-next::after,
+.hero-swiper .swiper-button-prev::after{
+    font-size:14px;
 }

@@ -38,57 +38,53 @@ export default function HomePage() {
           pagination={{ clickable: true }}
           navigation={true}
           className="hero-swiper"
-          style={{ 
-            '--swiper-pagination-color': 'var(--color-primary)', 
-            '--swiper-pagination-bullet-inactive-color': 'var(--color-text-secondary)', 
-            '--swiper-pagination-bullet-inactive-opacity': '0.4' 
-          } as React.CSSProperties}
+          style={{ '--swiper-pagination-color': '#C9952A', '--swiper-pagination-bullet-inactive-color': 'rgba(255,255,255,0.35)', '--swiper-pagination-bullet-inactive-opacity': '1' } as React.CSSProperties}
         >
           {/* ── Slide 1-3: Featured books ── */}
           {heroBooks.map((book) => (
             <SwiperSlide key={book._id}>
-              <div className="relative overflow-hidden bg-gradient-to-br from-bg via-surface to-primary/5 min-h-[600px] md:min-h-[680px] flex items-center transition-colors duration-300">
+              <div className="relative overflow-hidden bg-gradient-to-br from-[#FAF8F3] via-[#F5F1EA] to-[#EBE4D5] dark:from-[#12100D] dark:via-[#1E1A14] dark:to-[#2a200a] min-h-[600px] md:min-h-[680px] flex items-center">
                 {/* BG image blurred */}
                 <div className="absolute inset-0 z-0">
-                  <Image src={book.coverUrl} alt="" fill className="object-cover scale-105 blur-sm opacity-10 dark:opacity-25 saturate-50 transition-opacity duration-300" sizes="100vw" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-bg via-bg/80 to-transparent" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-bg/60 to-transparent" />
+                  <Image src={book.coverUrl} alt="" fill className="object-cover scale-105 blur-sm opacity-15 dark:opacity-25 saturate-50" sizes="100vw" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#FAF8F3]/95 via-[#FAF8F3]/80 to-transparent dark:from-[#12100D]/95 dark:via-[#12100D]/80 dark:to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#FAF8F3]/60 to-transparent dark:from-[#12100D]/60 dark:to-transparent" />
                 </div>
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#C9952A]/8 rounded-full blur-[100px] translate-x-1/4 -translate-y-1/4 pointer-events-none z-0" />
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#C9952A]/10 dark:bg-[#C9952A]/12 rounded-full blur-[100px] translate-x-1/4 -translate-y-1/4 pointer-events-none z-0" />
 
                 <div className="container-page py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center relative z-10">
-                  <div className="text-text-primary">
+                  <div className="text-text-primary dark:text-white">
                     <div className="flex items-center gap-2 mb-5">
                       <Badge variant="accent">Featured</Badge>
                       <Badge variant="support">{book.genreName}</Badge>
-                      <span className="px-2 py-0.5 rounded-pill text-[10px] font-bold bg-surface-alt text-text-secondary border border-border">{book.contentRating}</span>
+                      <span className="px-2 py-0.5 rounded-pill text-[10px] font-bold bg-black/5 dark:bg-white/10 text-text-secondary dark:text-white/70">{book.contentRating}</span>
                     </div>
                     <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight mb-5">{book.title}</h1>
-                    <p className="text-text-secondary font-body text-base mb-2">By <span className="text-text-primary font-semibold">{book.authorName}</span></p>
-                    <p className="text-text-secondary/80 font-body text-sm leading-relaxed mb-8 max-w-lg line-clamp-3">{book.synopsis}</p>
+                    <p className="text-text-secondary dark:text-white/70 font-body text-base mb-2">By <span className="text-text-primary dark:text-white/90 font-semibold">{book.authorName}</span></p>
+                    <p className="text-text-secondary/80 dark:text-white/55 font-body text-sm leading-relaxed mb-8 max-w-lg line-clamp-3">{book.synopsis}</p>
                     <div className="flex flex-wrap gap-5 mb-9 text-sm font-mono">
-                      <span className="flex items-center gap-1.5 text-text-secondary">
+                      <span className="flex items-center gap-1.5 text-text-secondary/70 dark:text-white/60">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                         {formatCount(book.views)}
                       </span>
                       <span className="text-[#D4AF37] font-bold">{book.ratingAvg.toFixed(1)} ★</span>
-                      <span className="text-text-secondary">{book.chapterCount} chapters</span>
-                      <span className="text-text-secondary">{book.freeChapterCount} free</span>
+                      <span className="text-text-secondary/60 dark:text-white/50">{book.chapterCount} chapters</span>
+                      <span className="text-text-secondary/60 dark:text-white/50">{book.freeChapterCount} free</span>
                     </div>
                     <div className="flex flex-wrap gap-3">
                       <Button href={`/book/${book._id}`} size="lg" variant="primary">Start reading free</Button>
-                      <Button href={`/book/${book._id}`} size="lg" variant="secondary">View details</Button>
+                      <Button href={`/book/${book._id}`} size="lg" variant="ghost" className="!text-text-secondary dark:!text-white/70 hover:!text-text-primary dark:hover:!text-white hover:!bg-black/5 dark:hover:!bg-white/10">View details</Button>
                     </div>
                   </div>
 
                   {/* Cover stack */}
                   <div className="hidden md:flex justify-center">
                     <div className="relative w-52 h-[320px]">
-                      <div className="absolute inset-0 translate-x-5 translate-y-5 rounded-xl bg-text-primary/5 border border-border/40" />
-                      <div className="absolute inset-0 translate-x-2.5 translate-y-2.5 rounded-xl bg-text-primary/8 border border-border/40" />
-                      <div className="relative w-full h-full rounded-xl overflow-hidden border border-border/80 shadow-elevated">
+                      <div className="absolute inset-0 translate-x-5 translate-y-5 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10" />
+                      <div className="absolute inset-0 translate-x-2.5 translate-y-2.5 rounded-xl bg-black/8 dark:bg-white/8 border border-black/10 dark:border-white/10" />
+                      <div className="relative w-full h-full rounded-xl overflow-hidden border border-black/10 dark:border-white/20 shadow-elevated">
                         <Image src={book.coverUrl} alt={book.title} fill className="object-cover" sizes="208px" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                         <div className="absolute -top-3 -right-3 flex items-center gap-1 bg-success px-2.5 py-1 rounded-pill z-10">
                           <span className="text-white text-[11px] font-semibold font-body">{book.freeChapterCount} free</span>
                         </div>
@@ -102,10 +98,10 @@ export default function HomePage() {
 
           {/* ── Slide 4: Author CTA ── */}
           <SwiperSlide key="author-cta">
-            <div className="relative overflow-hidden min-h-[600px] md:min-h-[680px] flex items-center bg-gradient-to-br from-bg via-surface to-primary/5 transition-colors duration-300">
+            <div className="relative overflow-hidden min-h-[600px] md:min-h-[680px] flex items-center bg-gradient-to-br from-[#FAF8F3] via-[#F5F1EA] to-[#EBE4D5] dark:from-[#0D0B08] dark:via-[#1A1408] dark:to-[#261E0A]">
               {/* Decorative gold ink blobs */}
-              <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-[#C9952A]/8 rounded-full blur-[120px] -translate-x-1/3 -translate-y-1/3 pointer-events-none" />
-              <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#D4AF37]/5 rounded-full blur-[100px] translate-x-1/4 translate-y-1/4 pointer-events-none" />
+              <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-[#C9952A]/8 dark:bg-[#C9952A]/10 rounded-full blur-[120px] -translate-x-1/3 -translate-y-1/3 pointer-events-none" />
+              <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#D4AF37]/6 dark:bg-[#D4AF37]/8 rounded-full blur-[100px] translate-x-1/4 translate-y-1/4 pointer-events-none" />
               {/* Subtle grid texture */}
               <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#C9952A 1px, transparent 1px), linear-gradient(90deg, #C9952A 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
 
@@ -122,18 +118,18 @@ export default function HomePage() {
                   </div>
 
                   {/* Badge */}
-                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-pill bg-[#C9952A]/10 border border-[#C9952A]/20 text-[#D4AF37] text-xs font-semibold font-body mb-6 tracking-wide">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-pill bg-[#C9952A]/10 dark:bg-[#C9952A]/15 border border-[#C9952A]/20 dark:border-[#C9952A]/30 text-[#D4AF37] text-xs font-semibold font-body mb-6 tracking-wide">
                     ✦ For Writers &amp; Storytellers
                   </div>
 
-                  <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight text-text-primary mb-6">
+                  <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight text-text-primary dark:text-white mb-6">
                     Your story deserves
                     <span className="block" style={{ background: 'linear-gradient(135deg, #C9952A 0%, #E8B84B 50%, #D4AF37 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                       to be read.
                     </span>
                   </h1>
 
-                  <p className="text-text-secondary font-body text-base md:text-lg leading-relaxed mb-10 max-w-xl mx-auto">
+                  <p className="text-text-secondary dark:text-white/60 font-body text-base md:text-lg leading-relaxed mb-10 max-w-xl mx-auto">
                     Publish your werewolf saga, dark romance, fantasy epic, or any story living rent-free in your head.
                     StoryForge gives you the tools — readers, chapters, coins &amp; royalties.
                   </p>
@@ -141,13 +137,13 @@ export default function HomePage() {
                   {/* Feature pills */}
                   <div className="flex flex-wrap items-center justify-center gap-3 mb-10">
                     {['Free to publish', 'Keep 70% royalty', 'Chapter-by-chapter', 'Built-in audience', 'Analytics dashboard'].map((f) => (
-                      <span key={f} className="px-3 py-1 rounded-pill border border-primary/20 bg-primary/5 text-primary text-xs font-semibold font-body">{f}</span>
+                      <span key={f} className="px-3 py-1 rounded-pill border border-[#C9952A]/20 dark:border-[#C9952A]/30 bg-[#C9952A]/5 dark:bg-[#C9952A]/10 text-[#C9952A] dark:text-[#D4AF37] text-xs font-semibold font-body">{f}</span>
                     ))}
                   </div>
 
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                     <Button href="/register" size="lg" variant="primary">Start writing — it&apos;s free</Button>
-                    <Button href="/author/dashboard" size="lg" variant="secondary">
+                    <Button href="/author/dashboard" size="lg" variant="ghost" className="!text-text-secondary dark:!text-white/60 hover:!text-text-primary dark:hover:!text-white hover:!bg-black/5 dark:hover:!bg-white/10">
                       Explore author tools
                     </Button>
                   </div>
