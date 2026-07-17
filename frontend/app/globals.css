@@ -45,6 +45,12 @@
   --author-cta-to: #EADBCC;
   --author-cta-text: var(--text-primary);
   --author-cta-muted: var(--text-secondary);
+
+  /* Swiper Button Variables */
+  --swiper-btn-bg: rgba(255, 255, 255, 0.65);
+  --swiper-btn-border: rgba(28, 24, 16, 0.08);
+  --swiper-btn-color: var(--color-primary);
+  --swiper-btn-hover-color: var(--bg);
 }
 
 /* Dark mode */
@@ -75,6 +81,12 @@
   --author-cta-to: #261E0A;
   --author-cta-text: #FFFFFF;
   --author-cta-muted: rgba(255, 255, 255, 0.60);
+
+  /* Swiper Button Variables */
+  --swiper-btn-bg: rgba(20, 20, 20, 0.65);
+  --swiper-btn-border: rgba(255, 255, 255, 0.08);
+  --swiper-btn-color: var(--color-accent);
+  --swiper-btn-hover-color: #111111;
 }
 
 /* ============================================================
@@ -257,12 +269,12 @@ h1, h2, h3, h4, h5, h6 {
   height: 48px;
   border-radius: 9999px;
 
-  background: rgba(20, 20, 20, 0.65);
+  background: var(--swiper-btn-bg);
   backdrop-filter: blur(12px);
 
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid var(--swiper-btn-border);
 
-  color: #D4A62A;
+  color: var(--swiper-btn-color);
 
   transition: all .25s ease;
 
@@ -280,8 +292,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .hero-swiper .swiper-button-next:hover,
 .hero-swiper .swiper-button-prev:hover{
-  background: #D4A62A;
-  color: #111;
+  background: var(--color-primary);
+  color: var(--swiper-btn-hover-color);
 }
 
 .hero-swiper .swiper-button-next::after,
