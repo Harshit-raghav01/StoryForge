@@ -27,6 +27,24 @@
   --border:       #E8DFD0;    /* Warm border */
   --shadow:       rgba(180, 140, 60, 0.12);
   color-scheme: light;
+
+  /* Hero Section Variables */
+  --hero-bg-from: #FAF8F3;
+  --hero-bg-via: #F5F1EA;
+  --hero-bg-to: #EADBCC;
+  --hero-overlay-from: rgba(250, 248, 243, 0.95);
+  --hero-overlay-via: rgba(250, 248, 243, 0.80);
+  --hero-overlay-to: rgba(250, 248, 243, 0.35);
+  --hero-text-title: var(--text-primary);
+  --hero-text-body: var(--text-secondary);
+  --hero-badge-bg: rgba(201, 149, 42, 0.12);
+
+  /* Author CTA Slide Variables */
+  --author-cta-from: #FAF8F3;
+  --author-cta-via: #F5F1EA;
+  --author-cta-to: #EADBCC;
+  --author-cta-text: var(--text-primary);
+  --author-cta-muted: var(--text-secondary);
 }
 
 /* Dark mode */
@@ -39,6 +57,24 @@
   --border:       #332E24;    /* Dark warm border */
   --shadow:       rgba(0, 0, 0, 0.50);
   color-scheme: dark;
+
+  /* Hero Section Variables */
+  --hero-bg-from: #12100D;
+  --hero-bg-via: #1E1A14;
+  --hero-bg-to: #2A200A;
+  --hero-overlay-from: rgba(18, 16, 13, 0.95);
+  --hero-overlay-via: rgba(18, 16, 13, 0.80);
+  --hero-overlay-to: rgba(18, 16, 13, 0.35);
+  --hero-text-title: #FFFFFF;
+  --hero-text-body: rgba(255, 255, 255, 0.70);
+  --hero-badge-bg: rgba(255, 255, 255, 0.10);
+
+  /* Author CTA Slide Variables */
+  --author-cta-from: #0D0B08;
+  --author-cta-via: #1A1408;
+  --author-cta-to: #261E0A;
+  --author-cta-text: #FFFFFF;
+  --author-cta-muted: rgba(255, 255, 255, 0.60);
 }
 
 /* ============================================================
@@ -57,6 +93,22 @@
   --color-text-primary: var(--text-primary);
   --color-text-secondary:var(--text-secondary);
   --color-border:       var(--border);
+
+  /* Hero colors mapped dynamically */
+  --color-hero-from: var(--hero-bg-from);
+  --color-hero-via: var(--hero-bg-via);
+  --color-hero-to: var(--hero-bg-to);
+  --color-hero-text-title: var(--hero-text-title);
+  --color-hero-text-body: var(--hero-text-body);
+  --color-hero-badge-bg: var(--hero-badge-bg);
+
+  /* Author CTA Slide colors mapped dynamically */
+  --color-author-cta-from: var(--author-cta-from);
+  --color-author-cta-via: var(--author-cta-via);
+  --color-author-cta-to: var(--author-cta-to);
+  --color-author-cta-text: var(--author-cta-text);
+  --color-author-cta-muted: var(--author-cta-muted);
+
 
   /* Fonts */
   --font-display: "Fraunces", Georgia, serif;
