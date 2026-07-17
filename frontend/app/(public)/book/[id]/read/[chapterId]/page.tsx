@@ -1,7 +1,8 @@
 'use client';
 
-import { use, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getBookById, chaptersForBook1, sampleChapterContent, wallet } from '@/lib/mockData';
 import { useReaderSettingsStore } from '@/store/themeStore';
@@ -10,8 +11,8 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 import { Modal } from '@/components/Modal';
 import { Button } from '@/components/Button';
 
-export default function ReaderViewPage({ params }: { params: Promise<{ id: string; chapterId: string }> }) {
-  const { id, chapterId } = use(params);
+export default function ReaderViewPage() {
+  const { id, chapterId } = useParams<{ id: string; chapterId: string }>();
   const book = getBookById(id);
   const bookTitle = book?.title ?? 'The Alpha\'s Unwanted Bride';
 

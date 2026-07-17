@@ -1,7 +1,8 @@
 'use client';
 
-import { use, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {
   books, getBookById, chaptersForBook1, reviewsForBook1,
@@ -19,8 +20,8 @@ const PLACEHOLDER_COLORS = [
   'from-support/40 via-primary/30 to-accent/20',
 ];
 
-export default function BookDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
+export default function BookDetailPage() {
+  const { id } = useParams<{ id: string }>();
   const book = getBookById(id) || books[0];
   const colorClass = PLACEHOLDER_COLORS[parseInt(book._id.replace('b', ''), 10) % 3];
 

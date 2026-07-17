@@ -1,6 +1,7 @@
 'use client';
 
-import { use, useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
+import { useParams } from 'next/navigation';
 import { useEditor, EditorContent, type Editor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
@@ -84,8 +85,8 @@ function TiptapToolbar({ editor }: { editor: Editor | null }) {
   );
 }
 
-export default function ChapterEditorPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
+export default function ChapterEditorPage() {
+  const { id } = useParams<{ id: string }>();
   const [chapters, setChapters] = useState<Chapter[]>(chaptersForBook1);
   const [activeChapterId, setActiveChapterId] = useState('ch1');
   const [chapterTitle, setChapterTitle] = useState('The Ceremony');
