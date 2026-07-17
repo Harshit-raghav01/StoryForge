@@ -1,32 +1,86 @@
 'use client';
 
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useUserStore } from '@/store/userStore';
 
 const demoAccounts = [
   {
     role: 'Reader',
     desc: 'Browse, unlock chapters, manage library',
-    href: '/reader/dashboard',
     icon: '📖',
     id: 'demo-reader',
+    action: 'reader',
   },
   {
     role: 'Author',
     desc: 'Create books, write chapters, view earnings',
-    href: '/author/dashboard',
     icon: '✍️',
     id: 'demo-author',
+    action: 'author',
   },
   {
     role: 'Admin',
     desc: 'Platform overview, users, content moderation',
-    href: '/admin/dashboard',
     icon: '🛡️',
     id: 'demo-admin',
+    action: 'admin',
   },
 ];
 
 export function DemoLoginPanel() {
+  const router = useRouter();
+  const { becomeAuthor } = useUserStore();
+
+  const handleDemoLogin = (action: string) => {
+    // Reset user state depending on selected demo role
+    if (action === 'reader') {
+      useUserStore.setState({
+        currentUser: {
+          _id: 'u1',
+          name: 'Ananya Sharma',
+          email: 'ananya@example.com',
+          avatar: 'https://i.pravatar.cc/150?img=32',
+          role: 'user',
+          coinBalance: 342,
+          authorProfile: null,
+        }
+      });
+      router.push('/dashboard');
+    } else if (action === 'author') {
+      useUserStore.setState({
+        currentUser: {
+          _id: 'u1',
+          name: 'Ananya Sharma',
+          email: 'ananya@example.com',
+          avatar: 'https://i.pravatar.cc/150?img=32',
+          role: 'user',
+          coinBalance: 342,
+          authorProfile: {
+            penName: 'Raven Blackwell',
+            bio: 'Writing dark romance and werewolf sagas since 2019. Two million reads and counting.',
+            verified: true,
+            followers: 14200,
+            earnings: 24500,
+          },
+        }
+      });
+      router.push('/dashboard');
+    } else if (action === 'admin') {
+      useUserStore.setState({
+        currentUser: {
+          _id: 'u3',
+          name: 'Kiran Mehta',
+          email: 'kiran@inkveil.com',
+          avatar: 'https://i.pravatar.cc/150?img=12',
+          role: 'admin',
+          coinBalance: 0,
+          authorProfile: null,
+        }
+      });
+      router.push('/admin/dashboard');
+    }
+  };
+
   return (
     <div className="mt-6">
       {/* Gold divider label */}
@@ -44,11 +98,11 @@ export function DemoLoginPanel() {
 
       <div className="flex flex-col gap-2.5">
         {demoAccounts.map((account) => (
-          <Link
+          <button
             key={account.id}
-            href={account.href}
+            onClick={() => handleDemoLogin(account.action)}
             id={account.id}
-            className="group flex items-center gap-4 px-4 py-3 rounded-xl border border-[#C9952A]/30 bg-gradient-to-r from-[#C9952A]/6 to-transparent hover:border-[#C9952A]/60 hover:from-[#C9952A]/12 hover:shadow-md transition-all duration-200"
+            className="w-full text-left group flex items-center gap-4 px-4 py-3 rounded-xl border border-[#C9952A]/30 bg-gradient-to-r from-[#C9952A]/6 to-transparent hover:border-[#C9952A]/60 hover:from-[#C9952A]/12 hover:shadow-md transition-all duration-200"
           >
             <span className="text-xl shrink-0">{account.icon}</span>
             <div className="flex-1 min-w-0">
@@ -63,7 +117,7 @@ export function DemoLoginPanel() {
             >
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
-          </Link>
+          </button>
         ))}
       </div>
     </div>

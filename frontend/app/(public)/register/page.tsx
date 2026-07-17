@@ -26,7 +26,7 @@ export default function RegisterPage() {
 
   const onSubmit = async (data: FormData) => {
     console.log('Register attempted', data);
-    window.location.href = '/reader/dashboard';
+    window.location.href = '/dashboard';
   };
 
   return (

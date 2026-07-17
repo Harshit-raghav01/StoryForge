@@ -22,7 +22,7 @@ export default function WalletPage() {
           <p className="text-xs font-body text-text-secondary mt-2">Coins never expire</p>
         </div>
         <a
-          href="/reader/coins"
+          href="/dashboard/coins"
           className="px-6 py-3 rounded-pill bg-primary text-white text-sm font-medium font-body hover:bg-primary-pop transition-colors"
         >
           + Buy more coins

@@ -19,7 +19,7 @@ export default function MyBooksPage() {
           <h1 className="font-display text-2xl md:text-3xl font-semibold text-text-primary">My Books</h1>
           <p className="text-text-secondary font-body text-sm mt-1">{authorBooks.length} books in your catalogue</p>
         </div>
-        <Button href="/author/books/create" variant="primary" size="md">
+        <Button href="/dashboard/books/create" variant="primary" size="md">
           + Create new book
         </Button>
       </div>
@@ -61,7 +61,7 @@ export default function MyBooksPage() {
             {/* Actions */}
             <div className="flex items-center gap-2 shrink-0">
               <Link
-                href={`/author/books/${book._id}/editor`}
+                href={`/dashboard/books/${book._id}/edit`}
                 className="px-3 py-1.5 rounded-pill text-xs font-medium font-body border border-border text-text-secondary hover:border-primary/40 hover:text-primary transition-colors"
               >
                 Edit chapters
@@ -80,7 +80,7 @@ export default function MyBooksPage() {
 
         {/* New book CTA tile */}
         <Link
-          href="/author/books/create"
+          href="/dashboard/books/create"
           className="flex items-center justify-center gap-3 p-8 rounded-card border-2 border-dashed border-border hover:border-primary/40 hover:bg-primary/5 transition-all group"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-text-secondary group-hover:text-primary transition-colors">

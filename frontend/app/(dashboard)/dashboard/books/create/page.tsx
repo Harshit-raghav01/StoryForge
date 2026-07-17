@@ -39,7 +39,7 @@ export default function CreateBookPage() {
 
   const onSubmit = async (data: FormData) => {
     console.log('Create book:', data, 'tags:', selectedTags);
-    window.location.href = '/author/books/b1/editor';
+    window.location.href = '/dashboard/books/b1/edit';
   };
 
   const toggleTag = (tag: string) => {
@@ -186,7 +186,7 @@ export default function CreateBookPage() {
           <Button type="submit" size="lg" variant="primary" disabled={isSubmitting}>
             {isSubmitting ? 'Creating…' : 'Create book'}
           </Button>
-          <Button type="button" size="lg" variant="secondary" onClick={() => window.location.href = '/author/books/b1/editor'}>
+          <Button type="button" size="lg" variant="secondary" onClick={() => window.location.href = '/dashboard/books/b1/edit'}>
             Skip for now
           </Button>
         </div>

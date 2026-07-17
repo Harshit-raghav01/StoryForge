@@ -54,7 +54,7 @@ export default function BookDetailPage() {
 
       {/* ─── Main detail section ──────────────────────────────── */}
       <section className="container-page py-10">
-        <div className="flex flex-col lg:flex-row gap-10">
+        <div className="flex py-8 flex-col lg:flex-row gap-10">
           {/* LEFT: Cover + Actions */}
           <div className="flex flex-col items-center lg:items-start shrink-0 lg:w-56">
             {/* Cover */}

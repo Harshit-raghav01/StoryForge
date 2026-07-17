@@ -22,7 +22,7 @@ export default function LoginPage() {
   const onSubmit = async (data: FormData) => {
     // Mock: just redirect to reader dashboard
     console.log('Login attempted', data);
-    window.location.href = '/reader/dashboard';
+    window.location.href = '/dashboard';
   };
 
   return (

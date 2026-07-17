@@ -6,6 +6,7 @@ import { ThemeToggle } from './ThemeToggle';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import { useUserStore } from '@/store/userStore';
 
 const navLinks = [
   { href: '/browse', label: 'Browse' },
@@ -18,6 +19,7 @@ const navLinks = [
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const { currentUser, logout } = useUserStore();
 
   // Close on route change
   useEffect(() => { setMobileOpen(false); }, [pathname]);
@@ -67,20 +69,44 @@ export function Navbar() {
             </Link>
 
             {/* Auth — desktop */}
-            <Link
-              href="/login"
-              className="hidden sm:block px-3 py-1.5 text-sm font-medium font-body text-text-secondary hover:text-text-primary transition-colors"
-              id="nav-login"
-            >
-              Sign in
-            </Link>
-            <Link
-              href="/register"
-              className="hidden sm:inline-flex items-center px-4 py-2 rounded-pill text-sm font-bold bg-primary text-white hover:bg-primary-pop transition-all shadow-sm hover:shadow-md font-body ring-2 ring-primary/30"
-              id="nav-register"
-            >
-              Get started ✨
-            </Link>
+            {currentUser ? (
+              <div className="hidden sm:flex items-center gap-3">
+                <Link
+                  href="/dashboard"
+                  className="px-4 py-2 rounded-pill text-sm font-bold bg-primary text-white hover:bg-primary-pop transition-all shadow-sm font-body ring-2 ring-primary/30"
+                  id="nav-dashboard"
+                >
+                  Dashboard 📊
+                </Link>
+                <button
+                  onClick={() => {
+                    logout();
+                    window.location.href = '/';
+                  }}
+                  className="px-3 py-1.5 text-sm font-medium font-body text-text-secondary hover:text-text-primary transition-colors"
+                  id="nav-logout"
+                >
+                  Sign out
+                </button>
+              </div>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="hidden sm:block px-3 py-1.5 text-sm font-medium font-body text-text-secondary hover:text-text-primary transition-colors"
+                  id="nav-login"
+                >
+                  Sign in
+                </Link>
+                <Link
+                  href="/register"
+                  className="hidden sm:inline-flex items-center px-4 py-2 rounded-pill text-sm font-bold bg-primary text-white hover:bg-primary-pop transition-all shadow-sm hover:shadow-md font-body ring-2 ring-primary/30"
+                  id="nav-register"
+                >
+                  Get started ✨
+                </Link>
+              </>
+            )}
 
             {/* Hamburger */}
             <button
@@ -164,20 +190,44 @@ export function Navbar() {
 
               {/* Bottom CTA */}
               <div className="px-4 py-5 border-t border-border space-y-3">
-                <Link
-                  href="/login"
-                  className="block w-full text-center px-4 py-2.5 rounded-pill border border-border text-sm font-semibold font-body text-text-secondary hover:text-text-primary hover:border-primary/40 transition-colors"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  Sign in
-                </Link>
-                <Link
-                  href="/register"
-                  className="block w-full text-center px-4 py-2.5 rounded-pill bg-primary text-white text-sm font-bold font-body hover:bg-primary-pop transition-all ring-2 ring-primary/30 shadow-sm"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  Get started ✨
-                </Link>
+                {currentUser ? (
+                  <>
+                    <Link
+                      href="/dashboard"
+                      className="block w-full text-center px-4 py-2.5 rounded-pill bg-primary text-white text-sm font-bold font-body hover:bg-primary-pop transition-all ring-2 ring-primary/30 shadow-sm"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      Dashboard 📊
+                    </Link>
+                    <button
+                      onClick={() => {
+                        logout();
+                        setMobileOpen(false);
+                        window.location.href = '/';
+                      }}
+                      className="block w-full text-center px-4 py-2.5 rounded-pill border border-border text-sm font-semibold font-body text-text-secondary hover:text-text-primary hover:border-primary/40 transition-colors"
+                    >
+                      Sign out
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href="/login"
+                      className="block w-full text-center px-4 py-2.5 rounded-pill border border-border text-sm font-semibold font-body text-text-secondary hover:text-text-primary hover:border-primary/40 transition-colors"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      Sign in
+                    </Link>
+                    <Link
+                      href="/register"
+                      className="block w-full text-center px-4 py-2.5 rounded-pill bg-primary text-white text-sm font-bold font-body hover:bg-primary-pop transition-all ring-2 ring-primary/30 shadow-sm"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      Get started ✨
+                    </Link>
+                  </>
+                )}
               </div>
             </motion.div>
           </>

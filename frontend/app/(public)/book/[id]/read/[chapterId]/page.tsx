@@ -240,7 +240,7 @@ export default function ReaderViewPage() {
           ) : (
             <div className="w-full space-y-3">
               <p className="text-danger text-sm font-body">You need {chapter.coinPrice - wallet.coinBalance} more coins.</p>
-              <Button fullWidth size="lg" variant="primary" href="/reader/coins">
+              <Button fullWidth size="lg" variant="primary" href="/dashboard/coins">
                 Buy more coins
               </Button>
             </div>

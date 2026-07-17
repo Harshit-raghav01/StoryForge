@@ -85,7 +85,7 @@ export default function HomePage() {
                       <div className="relative w-full h-full rounded-xl overflow-hidden border border-hero-text-title/20 shadow-elevated">
                         <Image src={book.coverUrl} alt={book.title} fill className="object-cover" sizes="208px" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                        <div className="absolute -top-3 -right-3 flex items-center gap-1 bg-success px-2.5 py-1 rounded-pill z-10">
+                        <div className="absolute top-3 right-3 flex items-center gap-1 bg-success px-2.5 py-1 rounded-pill z-10">
                           <span className="text-white text-[11px] font-semibold font-body">{book.freeChapterCount} free</span>
                         </div>
                       </div>
@@ -143,7 +143,7 @@ export default function HomePage() {
 
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                     <Button href="/register" size="lg" variant="primary">Start writing — it&apos;s free</Button>
-                    <Button href="/author/dashboard" size="lg" variant="ghost" className="!text-author-cta-muted hover:!text-author-cta-text hover:!bg-author-cta-text/10">
+                    <Button href="/dashboard" size="lg" variant="ghost" className="!text-author-cta-muted hover:!text-author-cta-text hover:!bg-author-cta-text/10">
                       Explore author tools
                     </Button>
                   </div>
