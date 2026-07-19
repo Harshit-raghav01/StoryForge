@@ -11,10 +11,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const pathname = usePathname();
   const router = useRouter();
   const { currentUser, setCurrentUser } = useUserStore();
-  const [hydrating, setHydrating] = useState(!currentUser);
+  // Only show spinner when we have no user AND haven't checked the cookie yet
+  const [hydrating, setHydrating] = useState(true);
 
   useEffect(() => {
-    if (currentUser) { setHydrating(false); return; }
+    // If store already has a user (e.g. after email login), skip the API call
+    if (currentUser) {
+      setHydrating(false);
+      return;
+    }
     // Try to restore session from the httpOnly access token cookie
     fetch('/api/auth/me')
       .then((r) => r.json())
@@ -109,7 +114,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 {currentUser.avatar ? (
                   <img src={currentUser.avatar} alt={currentUser.name} className="w-full h-full object-cover" />
                 ) : (
-                  currentUser.name.charAt(0).toUpperCase()
+                  currentUser.name.charAt(0)
                 )}
               </div>
               <div className="min-w-0">
@@ -188,25 +193,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               )}
             </div>
           </nav>
-
-          {/* Sign Out — always visible, especially for mobile */}
-          <div className="pt-2 border-t border-border/60">
-            <button
-              onClick={async () => {
-                await fetch('/api/auth/logout', { method: 'POST' });
-                useUserStore.getState().logout();
-                window.location.href = '/';
-              }}
-              className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-body text-text-secondary hover:text-danger hover:bg-danger/8 transition-colors group"
-            >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-0.5 transition-transform">
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                <polyline points="16 17 21 12 16 7" />
-                <line x1="21" y1="12" x2="9" y2="12" />
-              </svg>
-              Sign out
-            </button>
-          </div>
         </aside>
 
         {/* Main Content Pane */}

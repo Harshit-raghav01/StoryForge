@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -17,7 +17,7 @@ const schema = z.object({
 });
 type FormData = z.infer<typeof schema>;
 
-function LoginContent() {
+export default function LoginPage() {
   const { setCurrentUser } = useUserStore();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -121,7 +121,7 @@ function LoginContent() {
                 autoComplete="email"
                 placeholder="you@example.com"
                 {...register('email')}
-                className="w-full px-4 py-3 rounded-input border border-border bg-surface-alt text-text-primary font-body text-sm placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-colors"
+                className="w-full px-4 py-3 rounded-input border border-border bg-surface-alt text-text-primary font-body text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition-colors"
               />
               {errors.email && <p className="mt-1 text-xs font-body text-danger">{errors.email.message}</p>}
             </div>
@@ -137,7 +137,7 @@ function LoginContent() {
                 autoComplete="current-password"
                 placeholder="••••••••"
                 {...register('password')}
-                className="w-full px-4 py-3 rounded-input border border-border bg-surface-alt text-text-primary font-body text-sm placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-colors"
+                className="w-full px-4 py-3 rounded-input border border-border bg-surface-alt text-text-primary font-body text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition-colors"
               />
               {errors.password && <p className="mt-1 text-xs font-body text-danger">{errors.password.message}</p>}
             </div>
@@ -158,17 +158,5 @@ function LoginContent() {
         </div>
       </div>
     </div>
-  );
-}
-
-export default function LoginPage() {
-  return (
-    <Suspense fallback={
-      <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
-        <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
-      </div>
-    }>
-      <LoginContent />
-    </Suspense>
   );
 }

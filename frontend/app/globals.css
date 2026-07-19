@@ -235,8 +235,8 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0 1.5rem;
 }
 .custom-container-page {
+  max-width: 1400px;
   
- 
   padding: 1rem 1.5rem;
 }
 

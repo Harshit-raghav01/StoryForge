@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -18,7 +18,7 @@ const schema = z.object({
 });
 type FormData = z.infer<typeof schema>;
 
-function ResetPasswordContent() {
+export default function ResetPasswordPage() {
   const [submitted, setSubmitted] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const searchParams = useSearchParams();
@@ -94,14 +94,14 @@ function ResetPasswordContent() {
               <div>
                 <label htmlFor="password" className="block text-sm font-medium font-body text-text-primary mb-1.5">New Password</label>
                 <input id="password" type="password" placeholder="••••••••" {...register('password')}
-                  className="w-full px-4 py-3 rounded-input border border-border bg-surface-alt text-text-primary font-body text-sm placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-colors" />
+                  className="w-full px-4 py-3 rounded-input border border-border bg-surface-alt text-text-primary font-body text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition-colors" />
                 {errors.password && <p className="mt-1 text-xs font-body text-danger">{errors.password.message}</p>}
               </div>
 
               <div>
                 <label htmlFor="confirmPassword" className="block text-sm font-medium font-body text-text-primary mb-1.5">Confirm Password</label>
                 <input id="confirmPassword" type="password" placeholder="••••••••" {...register('confirmPassword')}
-                  className="w-full px-4 py-3 rounded-input border border-border bg-surface-alt text-text-primary font-body text-sm placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-colors" />
+                  className="w-full px-4 py-3 rounded-input border border-border bg-surface-alt text-text-primary font-body text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition-colors" />
                 {errors.confirmPassword && <p className="mt-1 text-xs font-body text-danger">{errors.confirmPassword.message}</p>}
               </div>
 
@@ -113,17 +113,5 @@ function ResetPasswordContent() {
         </div>
       </div>
     </div>
-  );
-}
-
-export default function ResetPasswordPage() {
-  return (
-    <Suspense fallback={
-      <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
-        <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
-      </div>
-    }>
-      <ResetPasswordContent />
-    </Suspense>
   );
 }

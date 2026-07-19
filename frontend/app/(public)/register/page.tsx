@@ -106,28 +106,28 @@ export default function RegisterPage() {
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium font-body text-text-primary mb-1.5">Display name</label>
                   <input id="name" type="text" autoComplete="name" placeholder="Your name" {...register('name')}
-                    className="w-full px-4 py-3 rounded-input border border-border bg-surface-alt text-text-primary font-body text-sm placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-colors" />
+                    className="w-full px-4 py-3 rounded-input border border-border bg-surface-alt text-text-primary font-body text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition-colors" />
                   {errors.name && <p className="mt-1 text-xs font-body text-danger">{errors.name.message}</p>}
                 </div>
 
                 <div>
                   <label htmlFor="reg-email" className="block text-sm font-medium font-body text-text-primary mb-1.5">Email address</label>
                   <input id="reg-email" type="email" autoComplete="email" placeholder="you@example.com" {...register('email')}
-                    className="w-full px-4 py-3 rounded-input border border-border bg-surface-alt text-text-primary font-body text-sm placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-colors" />
+                    className="w-full px-4 py-3 rounded-input border border-border bg-surface-alt text-text-primary font-body text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition-colors" />
                   {errors.email && <p className="mt-1 text-xs font-body text-danger">{errors.email.message}</p>}
                 </div>
 
                 <div>
                   <label htmlFor="reg-password" className="block text-sm font-medium font-body text-text-primary mb-1.5">Password</label>
                   <input id="reg-password" type="password" autoComplete="new-password" placeholder="Min. 8 characters" {...register('password')}
-                    className="w-full px-4 py-3 rounded-input border border-border bg-surface-alt text-text-primary font-body text-sm placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-colors" />
+                    className="w-full px-4 py-3 rounded-input border border-border bg-surface-alt text-text-primary font-body text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition-colors" />
                   {errors.password && <p className="mt-1 text-xs font-body text-danger">{errors.password.message}</p>}
                 </div>
 
                 <div>
                   <label htmlFor="confirm-password" className="block text-sm font-medium font-body text-text-primary mb-1.5">Confirm password</label>
                   <input id="confirm-password" type="password" autoComplete="new-password" placeholder="Repeat password" {...register('confirmPassword')}
-                    className="w-full px-4 py-3 rounded-input border border-border bg-surface-alt text-text-primary font-body text-sm placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-colors" />
+                    className="w-full px-4 py-3 rounded-input border border-border bg-surface-alt text-text-primary font-body text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition-colors" />
                   {errors.confirmPassword && <p className="mt-1 text-xs font-body text-danger">{errors.confirmPassword.message}</p>}
                 </div>
 

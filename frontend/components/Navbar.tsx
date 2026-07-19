@@ -218,6 +218,67 @@ export function Navbar() {
                   </motion.div>
                 ))}
               </nav>
+
+              {/* Bottom auth section */}
+              <div className="border-t border-border px-4 py-4 shrink-0">
+                {currentUser ? (
+                  <div className="space-y-3">
+                    {/* User info row */}
+                    <div className="flex items-center gap-3 px-1">
+                      {currentUser.avatar ? (
+                        <img src={currentUser.avatar} alt="Profile" className="w-9 h-9 rounded-full object-cover border border-border shrink-0" />
+                      ) : (
+                        <span className="w-9 h-9 rounded-full bg-primary/20 text-primary border border-primary/30 flex items-center justify-center text-sm font-bold font-display shrink-0">
+                          {currentUser.name.charAt(0).toUpperCase()}
+                        </span>
+                      )}
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold font-body text-text-primary truncate">{currentUser.name}</p>
+                        <p className="text-[11px] font-body text-text-secondary truncate">{currentUser.email}</p>
+                      </div>
+                    </div>
+                    {/* Dashboard link */}
+                    <Link
+                      href="/dashboard"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-primary/10 text-primary text-sm font-bold font-body hover:bg-primary/20 transition-colors"
+                    >
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                      Dashboard
+                    </Link>
+                    {/* Sign out */}
+                    <button
+                      onClick={async () => {
+                        setMobileOpen(false);
+                        await fetch('/api/auth/logout', { method: 'POST' });
+                        logout();
+                        window.location.href = '/';
+                      }}
+                      className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl border border-border text-text-secondary text-sm font-medium font-body hover:bg-surface-alt hover:text-text-primary transition-colors"
+                    >
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                      Sign out
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-2">
+                    <Link
+                      href="/login"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center justify-center py-2.5 rounded-xl border border-border text-sm font-medium font-body text-text-secondary hover:text-text-primary hover:bg-surface-alt transition-colors"
+                    >
+                      Sign in
+                    </Link>
+                    <Link
+                      href="/register"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center justify-center py-2.5 rounded-xl bg-primary text-white text-sm font-bold font-body hover:bg-primary-pop transition-colors"
+                    >
+                      Get started ✨
+                    </Link>
+                  </div>
+                )}
+              </div>
             </motion.div>
           </>
         )}

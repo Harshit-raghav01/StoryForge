@@ -46,14 +46,14 @@ export default function HomePage() {
           {/* ── Slide 1-3: Featured books ── */}
           {heroBooks.map((book) => (
             <SwiperSlide key={book._id}>
-              <div className="relative overflow-hidden bg-gradient-to-br from-hero-from via-hero-via to-hero-to min-h-[600px] md:min-h-[680px] flex items-center">
+              <div className="relative overflow-hidden bg-linear-to-br from-hero-from via-hero-via to-hero-to min-h-150 md:min-h-170 flex items-center">
                 {/* BG image blurred */}
                 <div className="absolute inset-0 z-0">
                   <Image src={book.coverUrl} alt="" fill className="object-cover scale-105 blur-sm opacity-25 saturate-50" sizes="100vw" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-hero-from/95 via-hero-from/80 to-transparent" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-hero-from/60 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-r from-hero-from/95 via-hero-from/80 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-hero-from/60 to-transparent" />
                 </div>
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#C9952A]/12 rounded-full blur-[100px] translate-x-1/4 -translate-y-1/4 pointer-events-none z-0" />
+                <div className="absolute top-0 right-0 w-125 h-125 bg-[#C9952A]/12 rounded-full blur-[100px] translate-x-1/4 -translate-y-1/4 pointer-events-none z-0" />
 
                 <div className="container-page py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center relative z-10">
                   <div className="text-hero-text-title">
@@ -76,18 +76,18 @@ export default function HomePage() {
                     </div>
                     <div className="flex flex-wrap gap-3">
                       <Button href={`/book/${book._id}`} size="lg" variant="primary">Start reading free</Button>
-                      <Button href={`/book/${book._id}`} size="lg" variant="ghost" className="!text-hero-text-body hover:!text-hero-text-title hover:!bg-hero-text-title/10">View details</Button>
+                      <Button href={`/book/${book._id}`} size="lg" variant="ghost" className="text-hero-text-body! hover:text-hero-text-title! hover:bg-hero-text-title/10!">View details</Button>
                     </div>
                   </div>
 
                   {/* Cover stack */}
                   <div className="hidden md:flex justify-center">
-                    <div className="relative w-52 h-[320px]">
+                    <div className="relative w-52 h-80">
                       <div className="absolute inset-0 translate-x-5 translate-y-5 rounded-xl bg-hero-text-title/5 border border-hero-text-title/10" />
                       <div className="absolute inset-0 translate-x-2.5 translate-y-2.5 rounded-xl bg-hero-text-title/8 border border-hero-text-title/10" />
                       <div className="relative w-full h-full rounded-xl overflow-hidden border border-hero-text-title/20 shadow-elevated">
                         <Image src={book.coverUrl} alt={book.title} fill className="object-cover" sizes="208px" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                        <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
                         <div className="absolute top-3 right-3 flex items-center gap-1 bg-success px-2.5 py-1 rounded-pill z-10">
                           <span className="text-white text-[11px] font-semibold font-body">{book.freeChapterCount} free</span>
                         </div>
@@ -101,10 +101,10 @@ export default function HomePage() {
 
           {/* ── Slide 4: Author CTA ── */}
           <SwiperSlide key="author-cta">
-            <div className="relative overflow-hidden min-h-[600px] md:min-h-[680px] flex items-center bg-gradient-to-br from-author-cta-from via-author-cta-via to-author-cta-to">
+            <div className="relative overflow-hidden min-h-150 md:min-h-170 flex items-center bg-linear-to-br from-author-cta-from via-author-cta-via to-author-cta-to">
               {/* Decorative gold ink blobs */}
-              <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-[#C9952A]/10 rounded-full blur-[120px] -translate-x-1/3 -translate-y-1/3 pointer-events-none" />
-              <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#D4AF37]/8 rounded-full blur-[100px] translate-x-1/4 translate-y-1/4 pointer-events-none" />
+              <div className="absolute top-0 left-0 w-150 h-150 bg-[#C9952A]/10 rounded-full blur-[120px] -translate-x-1/3 -translate-y-1/3 pointer-events-none" />
+              <div className="absolute bottom-0 right-0 w-100 h-100 bg-[#D4AF37]/8 rounded-full blur-[100px] translate-x-1/4 translate-y-1/4 pointer-events-none" />
               {/* Subtle grid texture */}
               <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#C9952A 1px, transparent 1px), linear-gradient(90deg, #C9952A 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
 
@@ -112,7 +112,7 @@ export default function HomePage() {
                 <div className="max-w-3xl mx-auto text-center">
                   {/* Icon */}
                   <div className="flex justify-center mb-8">
-                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#C9952A] to-[#D4AF37] flex items-center justify-center shadow-elevated">
+                    <div className="w-20 h-20 rounded-full bg-linear-to-br from-[#C9952A] to-[#D4AF37] flex items-center justify-center shadow-elevated">
                       <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8">
                         <path d="M12 20h9"/>
                         <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
@@ -146,7 +146,7 @@ export default function HomePage() {
 
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                     <Button href="/register" size="lg" variant="primary">Start writing — it&apos;s free</Button>
-                    <Button href="/dashboard" size="lg" variant="ghost" className="!text-author-cta-muted hover:!text-author-cta-text hover:!bg-author-cta-text/10">
+                    <Button href="/dashboard" size="lg" variant="ghost" className="text-author-cta-muted! hover:text-author-cta-text! hover:bg-author-cta-text/10!">
                       Explore author tools
                     </Button>
                   </div>
@@ -165,7 +165,7 @@ export default function HomePage() {
       </div>
       {/* ─── GENRE PILLS ───────────────────────────────────────────────── */}
       <section className=" py-4 bg-surface">
-        <div className="container-page [scrollbar-width:none] py-4 overflow-x-auto">
+        <div className="container-page scrollbar-none py-4 overflow-x-auto">
           <div className="flex gap-2 min-w-max">
             <Link href="/browse" className="px-3 py-2 rounded-xl text-sm font-semibold font-body bg-primary text-white shrink-0 hover:bg-primary-pop transition-colors">
               All stories
@@ -196,9 +196,9 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             <motion.div variants={fadeUp} className="md:row-span-2">
-              <Link href={`/book/${featuredBooks[0]._id}`} className="group relative rounded-card overflow-hidden flex flex-col justify-end min-h-[420px] border border-border block">
+              <Link href={`/book/${featuredBooks[0]._id}`} className="group relative rounded-card overflow-hidden flex flex-col justify-end min-h-105 border border-border">
                 <Image loading='eager' src={featuredBooks[0].coverUrl} alt={featuredBooks[0].title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="480px" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent z-10" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/30 to-transparent z-10" />
                 <div className="relative z-20 p-6">
                   <Badge variant="accent" className="mb-3">{featuredBooks[0].genreName}</Badge>
                   <h3 className="font-display text-xl font-semibold text-white mb-2 leading-snug">{featuredBooks[0].title}</h3>
@@ -319,7 +319,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── TESTIMONIALS ──────────────────────────────────────────────── */}
-      <section className="bg-gradient-to-br from-primary/8 via-surface-alt to-accent/5 py-16 border-y border-border">
+      <section className="bg-linear-to-br from-primary/8 via-surface-alt to-accent/5 py-16 border-y border-border">
         <div className="container-page">
           <motion.div variants={stagger} initial="initial" whileInView="animate" viewport={{ once: true }}>
             <motion.h2 variants={fadeUp} className="font-display text-2xl md:text-3xl font-semibold text-text-primary text-center mb-12">
@@ -342,7 +342,7 @@ export default function HomePage() {
       <section className="container-page section-y">
         <motion.div
           initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
-          className="rounded-card bg-gradient-to-br from-primary/15 via-surface to-accent/10 border border-primary/25 p-12 md:p-16 flex flex-col md:flex-row items-center gap-10"
+          className="rounded-card bg-linear-to-br from-primary/15 via-surface to-accent/10 border border-primary/25 p-12 md:p-16 flex flex-col md:flex-row items-center gap-10"
         >
           <div className="flex-1 text-center md:text-left">
             <WaxSealIcon size={44} className="mb-5 mx-auto md:mx-0" />
@@ -354,7 +354,7 @@ export default function HomePage() {
           <form className="flex flex-col sm:flex-row gap-3 w-full md:w-auto" onSubmit={(e) => e.preventDefault()}>
             <input
               type="email" placeholder="your@email.com" id="newsletter-email"
-              className="px-4 py-3 rounded-input border border-border bg-surface text-text-primary font-body text-sm placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/30 w-full sm:w-64"
+              className="px-4 py-3 rounded-input border border-border bg-surface text-text-primary font-body text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 w-full sm:w-64"
             />
             <Button type="submit" variant="primary" size="md">Subscribe</Button>
           </form>
