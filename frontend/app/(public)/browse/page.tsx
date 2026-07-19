@@ -81,12 +81,13 @@ function BrowseContent() {
   const [rating, setRating] = useState('');
   const [status, setStatus] = useState('');
   const [sort, setSort] = useState(searchParams.get('sort') || 'trending');
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(searchParams.get('search') || '');
   const [filterOpen, setFilterOpen] = useState(false);
 
   useEffect(() => {
     setGenre(searchParams.get('genre') || '');
     setSort(searchParams.get('sort') || 'trending');
+    setSearch(searchParams.get('search') || '');
   }, [searchParams]);
 
   // Lock scroll when mobile filter open

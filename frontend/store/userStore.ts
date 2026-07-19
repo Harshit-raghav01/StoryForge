@@ -18,21 +18,15 @@ export interface User {
 
 interface UserState {
   currentUser: User | null;
+  setCurrentUser: (user: User | null) => void;
   becomeAuthor: (penName: string, bio: string) => void;
   updateBalance: (amount: number) => void;
   logout: () => void;
 }
 
 export const useUserStore = create<UserState>((set) => ({
-  currentUser: {
-    _id: 'u1',
-    name: 'Ananya Sharma',
-    email: 'ananya@example.com',
-    avatar: 'https://i.pravatar.cc/150?img=32',
-    role: 'user',
-    coinBalance: 342,
-    authorProfile: null, // Starts as a reader only
-  },
+  currentUser: null,
+  setCurrentUser: (user) => set({ currentUser: user }),
   becomeAuthor: (penName, bio) => set((state) => {
     if (!state.currentUser) return state;
     return {

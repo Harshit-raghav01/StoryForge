@@ -1,14 +1,47 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Navbar } from '@/components/Navbar';
 import { WaxSealIcon, CoinIcon } from '@/components/WaxSealIcon';
 import { useUserStore } from '@/store/userStore';
+import { useEffect, useState } from 'react';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const { currentUser } = useUserStore();
+  const router = useRouter();
+  const { currentUser, setCurrentUser } = useUserStore();
+  const [hydrating, setHydrating] = useState(!currentUser);
+
+  useEffect(() => {
+    if (currentUser) { setHydrating(false); return; }
+    // Try to restore session from the httpOnly access token cookie
+    fetch('/api/auth/me')
+      .then((r) => r.json())
+      .then(({ user }) => {
+        if (user) {
+          setCurrentUser(user);
+        } else {
+          router.replace('/login?from=/dashboard');
+        }
+      })
+      .catch(() => router.replace('/login?from=/dashboard'))
+      .finally(() => setHydrating(false));
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (hydrating) {
+    return (
+      <>
+        <Navbar />
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="flex flex-col items-center gap-3 text-text-secondary">
+            <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+            <p className="text-sm font-body">Loading your session…</p>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   if (!currentUser) {
     return (
@@ -66,7 +99,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </div>
       </div>
 
-      <div className="container-page py-8 flex flex-col md:flex-row gap-8">
+      <div  className="custom-container-page py-2  flex flex-col md:flex-row gap-8">
         {/* Sidebar Nav */}
         <aside className="shrink-0 w-full md:w-56 space-y-6">
           {/* User Profile Block & Coin balance */}
@@ -155,6 +188,25 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               )}
             </div>
           </nav>
+
+          {/* Sign Out — always visible, especially for mobile */}
+          <div className="pt-2 border-t border-border/60">
+            <button
+              onClick={async () => {
+                await fetch('/api/auth/logout', { method: 'POST' });
+                useUserStore.getState().logout();
+                window.location.href = '/';
+              }}
+              className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-body text-text-secondary hover:text-danger hover:bg-danger/8 transition-colors group"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-0.5 transition-transform">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+              </svg>
+              Sign out
+            </button>
+          </div>
         </aside>
 
         {/* Main Content Pane */}

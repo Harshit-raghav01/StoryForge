@@ -14,6 +14,7 @@ import { books, authors, genres, testimonials, formatCount } from '@/lib/mockDat
 import { BookCard } from '@/components/BookCard';
 import { WaxSealIcon, CoinIcon } from '@/components/WaxSealIcon';
 import { Button, Badge } from '@/components/Button';
+import { SearchBar } from '@/components/SearchBar';
 
 // Hero: 3 curated featured books
 const heroBooks = [books[3], books[5], books[0]]; // Vow of Silence, The Last Siren, Alpha's Bride
@@ -28,8 +29,10 @@ export default function HomePage() {
   return (
     <div className="flex  flex-col">
 
+      
+
       {/* ─── HERO SWIPER ───────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden hidden sm:block">
         <Swiper
           modules={[Autoplay, Pagination, EffectFade, Navigation ]}
           effect="fade"
@@ -153,19 +156,25 @@ export default function HomePage() {
           </SwiperSlide>
         </Swiper>
       </section>
-
+      
+      {/* Mobile Search Bar */}
+      <div className="block sm:hidden px-4 py-2 pt-4 bg-surface  border-border">
+        <div className="max-w-md mx-auto">
+          <SearchBar />
+        </div>
+      </div>
       {/* ─── GENRE PILLS ───────────────────────────────────────────────── */}
-      <section className="border-b py-2 border-border bg-surface">
-        <div className="container-page py-4 overflow-x-auto">
+      <section className=" py-4 bg-surface">
+        <div className="container-page [scrollbar-width:none] py-4 overflow-x-auto">
           <div className="flex gap-2 min-w-max">
-            <Link href="/browse" className="px-4 py-2 rounded-pill text-sm font-semibold font-body bg-primary text-white shrink-0 hover:bg-primary-pop transition-colors">
+            <Link href="/browse" className="px-3 py-2 rounded-xl text-sm font-semibold font-body bg-primary text-white shrink-0 hover:bg-primary-pop transition-colors">
               All stories
             </Link>
             {genres.map((g) => (
               <Link
                 key={g._id}
                 href={`/browse?genre=${g.slug}`}
-                className="px-4 py-2 rounded-pill text-sm font-medium font-body border border-border text-text-secondary hover:border-primary/50 hover:text-primary bg-surface-alt shrink-0 transition-colors"
+                className="px-3 py-2 rounded-xl text-sm sm:text-[14px] font-medium font-body border border-border text-text-secondary hover:border-primary/50 hover:text-primary bg-surface-alt shrink-0 transition-colors"
               >
                 {g.name}
               </Link>
@@ -188,7 +197,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             <motion.div variants={fadeUp} className="md:row-span-2">
               <Link href={`/book/${featuredBooks[0]._id}`} className="group relative rounded-card overflow-hidden flex flex-col justify-end min-h-[420px] border border-border block">
-                <Image src={featuredBooks[0].coverUrl} alt={featuredBooks[0].title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="480px" />
+                <Image loading='eager' src={featuredBooks[0].coverUrl} alt={featuredBooks[0].title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="480px" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent z-10" />
                 <div className="relative z-20 p-6">
                   <Badge variant="accent" className="mb-3">{featuredBooks[0].genreName}</Badge>

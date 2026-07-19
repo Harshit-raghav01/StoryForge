@@ -230,9 +230,14 @@ h1, h2, h3, h4, h5, h6 {
    Utility classes
    ============================================================ */
 .container-page {
-  max-width: 1280px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 1.5rem;
+}
+.custom-container-page {
+  
+ 
+  padding: 1rem 1.5rem;
 }
 
 /* Standard section vertical padding */

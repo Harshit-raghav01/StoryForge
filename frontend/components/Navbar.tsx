@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { WaxSealIcon } from './WaxSealIcon';
 import { ThemeToggle } from './ThemeToggle';
+import { SearchBar } from './SearchBar';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
@@ -19,7 +20,16 @@ const navLinks = [
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
-  const { currentUser, logout } = useUserStore();
+  const { currentUser, logout, setCurrentUser } = useUserStore();
+
+  // Hydrate session from cookie on first render (handles page reload & OAuth redirect)
+  useEffect(() => {
+    if (currentUser) return;
+    fetch('/api/auth/me')
+      .then((r) => r.json())
+      .then(({ user }) => { if (user) setCurrentUser(user); })
+      .catch(() => {});
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Close on route change
   useEffect(() => { setMobileOpen(false); }, [pathname]);
@@ -57,16 +67,10 @@ export function Navbar() {
           <div className="ml-auto flex items-center gap-2">
             <ThemeToggle />
 
-            {/* Search icon */}
-            <Link
-              href="/browse"
-              className="hidden sm:flex items-center justify-center w-9 h-9 rounded-full hover:bg-surface-alt text-text-secondary hover:text-text-primary transition-colors"
-              aria-label="Search"
-            >
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
-              </svg>
-            </Link>
+            {/* PC Search Bar */}
+            <div className="hidden sm:block w-40 md:w-52 lg:w-64">
+              <SearchBar size="sm" />
+            </div>
 
             {/* Auth — desktop */}
             {currentUser ? (
@@ -79,7 +83,8 @@ export function Navbar() {
                   Dashboard 📊
                 </Link>
                 <button
-                  onClick={() => {
+                  onClick={async () => {
+                    await fetch('/api/auth/logout', { method: 'POST' });
                     logout();
                     window.location.href = '/';
                   }}
@@ -107,6 +112,32 @@ export function Navbar() {
                 </Link>
               </>
             )}
+
+            {/* Mobile User Profile Icon */}
+            <Link
+              href={currentUser ? '/dashboard' : '/login'}
+              className="sm:hidden flex items-center justify-center w-9 h-9 rounded-full hover:bg-surface-alt transition-colors"
+              aria-label="User Profile"
+            >
+              {currentUser ? (
+                currentUser.avatar ? (
+                  <img
+                    src={currentUser.avatar}
+                    alt="Profile"
+                    className="w-9 h-9 rounded-full object-cover border border-border"
+                  />
+                ) : (
+                  <span className="w-9 h-9 rounded-full bg-primary/20 text-primary border border-primary/30 flex items-center justify-center text-sm font-bold font-display">
+                    {currentUser.name.charAt(0).toUpperCase()}
+                  </span>
+                )
+              ) : (
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-text-secondary">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              )}
+            </Link>
 
             {/* Hamburger */}
             <button
@@ -187,48 +218,6 @@ export function Navbar() {
                   </motion.div>
                 ))}
               </nav>
-
-              {/* Bottom CTA */}
-              <div className="px-4 py-5 border-t border-border space-y-3">
-                {currentUser ? (
-                  <>
-                    <Link
-                      href="/dashboard"
-                      className="block w-full text-center px-4 py-2.5 rounded-pill bg-primary text-white text-sm font-bold font-body hover:bg-primary-pop transition-all ring-2 ring-primary/30 shadow-sm"
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      Dashboard 📊
-                    </Link>
-                    <button
-                      onClick={() => {
-                        logout();
-                        setMobileOpen(false);
-                        window.location.href = '/';
-                      }}
-                      className="block w-full text-center px-4 py-2.5 rounded-pill border border-border text-sm font-semibold font-body text-text-secondary hover:text-text-primary hover:border-primary/40 transition-colors"
-                    >
-                      Sign out
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <Link
-                      href="/login"
-                      className="block w-full text-center px-4 py-2.5 rounded-pill border border-border text-sm font-semibold font-body text-text-secondary hover:text-text-primary hover:border-primary/40 transition-colors"
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      Sign in
-                    </Link>
-                    <Link
-                      href="/register"
-                      className="block w-full text-center px-4 py-2.5 rounded-pill bg-primary text-white text-sm font-bold font-body hover:bg-primary-pop transition-all ring-2 ring-primary/30 shadow-sm"
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      Get started ✨
-                    </Link>
-                  </>
-                )}
-              </div>
             </motion.div>
           </>
         )}

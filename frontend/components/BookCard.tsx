@@ -54,6 +54,7 @@ export function BookCard({ book, size = 'standard', progress, index = 0 }: BookC
         <Image
           src={book.coverUrl}
           alt={book.title}
+          loading='eager'
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-500"
           sizes={size === 'compact' ? '160px' : size === 'featured' ? '112px' : '280px'}
