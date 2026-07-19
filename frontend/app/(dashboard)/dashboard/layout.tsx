@@ -103,13 +103,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         {/* Sidebar Nav */}
         <aside className="shrink-0 w-full md:w-56 space-y-6">
           {/* User Profile Block & Coin balance */}
-          <div className="p-4 rounded-card bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20">
+          <div className="p-4 rounded-card bg-linear-to-br from-primary/10 to-accent/10 border border-primary/20">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-full border border-border overflow-hidden bg-surface-alt flex items-center justify-center font-display font-bold text-primary">
                 {currentUser.avatar ? (
                   <img src={currentUser.avatar} alt={currentUser.name} className="w-full h-full object-cover" />
                 ) : (
-                  currentUser.name.charAt(0)
+                  currentUser.name.charAt(0).toUpperCase()
                 )}
               </div>
               <div className="min-w-0">

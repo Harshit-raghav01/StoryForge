@@ -91,7 +91,7 @@ export default function UnifiedDashboardPage() {
             <motion.div 
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="p-6 rounded-card bg-gradient-to-r from-primary/10 via-support/5 to-accent/10 border border-primary/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+              className="p-6 rounded-card bg-linear-to-r from-primary/10 via-support/5 to-accent/10 border border-primary/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
             >
               <div>
                 <h3 className="font-display text-lg font-semibold text-text-primary mb-1">
@@ -225,7 +225,7 @@ export default function UnifiedDashboardPage() {
             <div className="space-y-3">
               {authorBooks.map((book) => (
                 <div key={book._id} className="flex items-center gap-4 p-4 bg-surface rounded-card border border-border shadow-soft">
-                  <div className="w-12 h-16 rounded bg-gradient-to-br from-primary/40 to-support/30 shrink-0 flex items-center justify-center border border-border">
+                  <div className="w-12 h-16 rounded bg-linear-to-br from-primary/40 to-support/30 shrink-0 flex items-center justify-center border border-border">
                     <span className="text-white text-[10px] font-display text-center px-1 leading-tight line-clamp-2">
                       {book.title}
                     </span>
