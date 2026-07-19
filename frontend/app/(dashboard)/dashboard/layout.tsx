@@ -52,7 +52,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     return (
       <>
         <Navbar />
-        <div className="container-page py-20 text-center">
+        <div className="w-screen h-sreen flex flex-col items-center justify-center py-20 text-center">
           <h2 className="font-display text-2xl font-bold text-text-primary mb-4">Please log in to access your dashboard</h2>
           <Link href="/login" className="px-6 py-2.5 rounded-pill bg-primary text-white font-medium hover:bg-primary-pop transition-colors">
             Go to Login
