@@ -10,6 +10,7 @@ import { WaxSealIcon } from '@/components/WaxSealIcon';
 import { Button } from '@/components/Button';
 import { DemoLoginPanel } from '@/components/DemoLoginPanel';
 import { useUserStore } from '@/store/userStore';
+import { Suspense } from 'react';
 
 const schema = z.object({
   email: z.string().email('Please enter a valid email'),
@@ -17,7 +18,7 @@ const schema = z.object({
 });
 type FormData = z.infer<typeof schema>;
 
-export default function LoginPage() {
+function LoginContent() {
   const { setCurrentUser } = useUserStore();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -158,5 +159,19 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center py-12 px-4">
+        <div className="w-full max-w-md bg-surface rounded-card border border-border shadow-card p-8 md:p-10 text-center text-text-secondary font-body">
+          Loading login...
+        </div>
+      </div>
+    }>
+      <LoginContent />
+    </Suspense>
   );
 }

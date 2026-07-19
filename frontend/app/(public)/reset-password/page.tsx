@@ -8,6 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { WaxSealIcon } from '@/components/WaxSealIcon';
 import { Button } from '@/components/Button';
+import { Suspense } from 'react';
 
 const schema = z.object({
   password: z.string().min(8, 'Password must be at least 8 characters'),
@@ -18,7 +19,7 @@ const schema = z.object({
 });
 type FormData = z.infer<typeof schema>;
 
-export default function ResetPasswordPage() {
+function ResetPasswordContent() {
   const [submitted, setSubmitted] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const searchParams = useSearchParams();
@@ -113,5 +114,19 @@ export default function ResetPasswordPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center py-12 px-4 bg-bg">
+        <div className="w-full max-w-md bg-surface rounded-card border border-border shadow-card p-8 md:p-10 text-center text-text-secondary font-body">
+          Loading reset page...
+        </div>
+      </div>
+    }>
+      <ResetPasswordContent />
+    </Suspense>
   );
 }
