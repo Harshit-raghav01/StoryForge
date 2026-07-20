@@ -15,7 +15,8 @@ async function verifyToken(token: string, secret: string) {
   }
 }
 
-export async function middleware(req: NextRequest) {
+// Next.js 16 requires the function to be named 'proxy' (previously 'middleware')
+export async function proxy(req: NextRequest) {
   const accessToken = req.cookies.get('accessToken')?.value;
   const refreshToken = req.cookies.get('refreshToken')?.value;
   const pathname = req.nextUrl.pathname;
