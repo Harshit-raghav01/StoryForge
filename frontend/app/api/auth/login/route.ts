@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
     }
 
-    const user = await User.findOne({ email: email.toLowerCase() });
+    const user = await User.findOne({ email: email.toLowerCase() }).populate('authorProfile');
     if (!user || !user.passwordHash) {
       return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
     }
@@ -41,6 +41,15 @@ export async function POST(req: NextRequest) {
       avatar: user.avatarUrl || '',
       role: user.role.toLowerCase(),
       coinBalance: user.coinBalance,
+      authorProfile: user.authorProfile
+        ? {
+            penName: (user.authorProfile as any).penName,
+            bio: (user.authorProfile as any).bio,
+            verified: (user.authorProfile as any).isVerified || false,
+            followers: (user.authorProfile as any).followerCount || 0,
+            earnings: (user.authorProfile as any).totalEarnings || (user.authorProfile as any).earnings || 0,
+          }
+        : null,
     };
 
     const res = NextResponse.json({ user: userProfile }, { status: 200 });

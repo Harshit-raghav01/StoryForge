@@ -17,10 +17,24 @@ export async function GET(req: NextRequest) {
     }
 
     await connectDB();
-    const user = await User.findById(decoded.sub).select('-passwordHash -verificationToken -resetPasswordToken');
+    // Populate the author profile document reference
+    const user = await User.findById(decoded.sub)
+      .populate('authorProfile')
+      .select('-passwordHash -verificationToken -resetPasswordToken');
+
     if (!user) {
       return NextResponse.json({ user: null }, { status: 401 });
     }
+
+    const authorProfileData = user.authorProfile
+      ? {
+          penName: (user.authorProfile as any).penName,
+          bio: (user.authorProfile as any).bio,
+          verified: (user.authorProfile as any).isVerified || false,
+          followers: (user.authorProfile as any).followerCount || 0,
+          earnings: (user.authorProfile as any).totalEarnings || (user.authorProfile as any).earnings || 0,
+        }
+      : null;
 
     return NextResponse.json({
       user: {
@@ -30,7 +44,7 @@ export async function GET(req: NextRequest) {
         avatar: user.avatarUrl || '',
         role: user.role.toLowerCase(),
         coinBalance: user.coinBalance,
-        authorProfile: user.authorProfile || null,
+        authorProfile: authorProfileData,
       },
     });
   } catch (error) {

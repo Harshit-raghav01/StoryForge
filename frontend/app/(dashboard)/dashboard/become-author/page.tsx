@@ -24,6 +24,7 @@ type FormData = z.infer<typeof schema>;
 export default function BecomeAuthorPage() {
   const { currentUser, becomeAuthor } = useUserStore();
   const [success, setSuccess] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -32,10 +33,25 @@ export default function BecomeAuthorPage() {
   if (!currentUser) return null;
 
   const onSubmit = async (data: FormData) => {
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    becomeAuthor(data.penName, data.bio);
-    setSuccess(true);
+    setApiError(null);
+    try {
+      const res = await fetch('/api/auth/become-author', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json();
+
+      if (!res.ok) {
+        setApiError(json.error || 'Failed to activate author profile. Please try again.');
+        return;
+      }
+
+      becomeAuthor(json.authorProfile.penName, json.authorProfile.bio);
+      setSuccess(true);
+    } catch (err) {
+      setApiError('Network error. Please check your connection and try again.');
+    }
   };
 
   if (success || currentUser.authorProfile) {
@@ -90,6 +106,12 @@ export default function BecomeAuthorPage() {
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-surface rounded-card border border-border p-6 shadow-soft">
+        {apiError && (
+          <div className="px-4 py-3 rounded-xl bg-danger/10 border border-danger/30 text-danger text-sm font-body">
+            {apiError}
+          </div>
+        )}
+
         {/* Pen Name */}
         <div>
           <label htmlFor="pen-name" className="block text-sm font-semibold font-body text-text-primary mb-1.5">
