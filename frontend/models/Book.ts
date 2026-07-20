@@ -39,6 +39,9 @@ export interface IBook extends Document {
   // Moderation workflow fields
   reviewNotes?: string;                    // Admin rejection reason shown to author (required on REJECTED)
   submittedAt?: Date;                      // When author last submitted for review
+  reviewStartedAt?: Date;                  // When admin picks up the book for review
+  approvedAt?: Date;                       // When admin approves the book
+  rejectedAt?: Date;                       // When admin rejects the book
   reviewedAt?: Date;                       // When admin last approved or rejected
   publishedAt?: Date;                      // Set when first chapter is published
   // Denormalized counters — updated via atomic $inc operations in service layer
@@ -77,6 +80,9 @@ const BookSchema = new Schema<IBook>(
     isDeleted:           { type: Boolean, default: false },
     reviewNotes:         { type: String, maxlength: 1000 },
     submittedAt:         { type: Date },
+    reviewStartedAt:     { type: Date },
+    approvedAt:          { type: Date },
+    rejectedAt:          { type: Date },
     reviewedAt:          { type: Date },
     publishedAt:         { type: Date },
     chapterCount:        { type: Number, default: 0, min: 0 },

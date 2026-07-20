@@ -2,6 +2,8 @@ import connectToDatabase from '@/lib/db';
 import Book, { BookStatus } from '@/models/Book';
 import AuthorProfile from '@/models/AuthorProfile';
 import User from '@/models/User';
+import BookVersion from '@/models/BookVersion';
+import { BookEvents } from '@/lib/events';
 import { generateBookSlug, resolveSlugCollision } from '@/lib/slugify';
 import { z } from 'zod';
 import mongoose from 'mongoose';
@@ -161,6 +163,45 @@ export async function updateBook(userId: string, bookId: string, input: UpdateBo
     throw new Error(`Cannot edit book while status is ${book.status}. Only DRAFT or REJECTED books can be edited.`);
   }
 
+  // Capture what changed to create a BookVersion log
+  const changes: { field: string; oldValue?: any; newValue?: any }[] = [];
+  const fieldsToCheck = [
+    { name: 'title', val: validatedData.title },
+    { name: 'synopsis', val: validatedData.synopsis },
+    { name: 'coverUrl', val: validatedData.coverUrl },
+    { name: 'genreId', val: validatedData.genreId, dbName: 'genre' },
+    { name: 'categories', val: validatedData.categories },
+    { name: 'tags', val: validatedData.tags },
+    { name: 'language', val: validatedData.language },
+    { name: 'contentRating', val: validatedData.contentRating },
+    { name: 'targetAudience', val: validatedData.targetAudience },
+    { name: 'novelType', val: validatedData.novelType },
+    { name: 'defaultChapterPrice', val: validatedData.defaultChapterPrice },
+  ];
+
+  for (const f of fieldsToCheck) {
+    if (f.val !== undefined) {
+      const dbKey = f.dbName || f.name;
+      const oldVal = (book as any)[dbKey];
+      let isDifferent = false;
+      if (Array.isArray(oldVal) && Array.isArray(f.val)) {
+        isDifferent = JSON.stringify(oldVal.map(x => x.toString())) !== JSON.stringify(f.val.map(x => x.toString()));
+      } else if (oldVal instanceof mongoose.Types.ObjectId) {
+        isDifferent = oldVal.toString() !== f.val.toString();
+      } else {
+        isDifferent = oldVal !== f.val;
+      }
+      
+      if (isDifferent) {
+        changes.push({
+          field: f.name,
+          oldValue: oldVal,
+          newValue: f.val,
+        });
+      }
+    }
+  }
+
   // Build update payload — only include provided fields
   const update: Record<string, any> = {};
   if (validatedData.title !== undefined) update.title = validatedData.title;
@@ -179,6 +220,16 @@ export async function updateBook(userId: string, bookId: string, input: UpdateBo
 
   const updated = await Book.findByIdAndUpdate(bookId, { $set: update }, { new: true })
     .populate('genre', 'name slug');
+
+  // Create BookVersion if there are modifications
+  if (changes.length > 0) {
+    await BookVersion.create({
+      book: book._id,
+      editedBy: new mongoose.Types.ObjectId(userId),
+      changes,
+    });
+  }
+
   return { book: formatBook(updated) };
 }
 
@@ -235,6 +286,9 @@ export async function submitForReview(userId: string, bookId: string) {
     { new: true }
   );
 
+  // Trigger status change event hook
+  await BookEvents.emitBookSubmitted(bookId, userId);
+
   return {
     message: 'Book submitted for review',
     book: { status: updated!.status, submittedAt: updated!.submittedAt },
@@ -284,9 +338,16 @@ export async function adminPickupBook(adminId: string, bookId: string) {
 
   const updated = await Book.findByIdAndUpdate(
     bookId,
-    { status: 'UNDER_REVIEW' },
+    {
+      status: 'UNDER_REVIEW',
+      reviewStartedAt: new Date(),
+    },
     { new: true }
   );
+
+  // Trigger status change event hook
+  await BookEvents.emitBookUnderReview(bookId, adminId);
+
   return { message: 'Book picked up for review', book: { status: updated!.status } };
 }
 
@@ -304,9 +365,17 @@ export async function adminApproveBook(adminId: string, bookId: string) {
 
   const updated = await Book.findByIdAndUpdate(
     bookId,
-    { status: 'APPROVED', reviewedAt: new Date(), $unset: { reviewNotes: '' } },
+    {
+      status: 'APPROVED',
+      approvedAt: new Date(),
+      reviewedAt: new Date(),
+      $unset: { reviewNotes: '' }
+    },
     { new: true }
   );
+
+  // Trigger status change event hook
+  await BookEvents.emitBookApproved(bookId, adminId);
 
   return {
     message: 'Book approved. Author may now create chapters.',
@@ -330,9 +399,17 @@ export async function adminRejectBook(adminId: string, bookId: string, input: Re
 
   const updated = await Book.findByIdAndUpdate(
     bookId,
-    { status: 'REJECTED', reviewedAt: new Date(), reviewNotes },
+    {
+      status: 'REJECTED',
+      rejectedAt: new Date(),
+      reviewedAt: new Date(),
+      reviewNotes
+    },
     { new: true }
   );
+
+  // Trigger status change event hook
+  await BookEvents.emitBookRejected(bookId, adminId, reviewNotes);
 
   return {
     message: 'Book rejected. Author will be notified.',

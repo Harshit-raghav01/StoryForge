@@ -6,6 +6,9 @@ export type NotificationType =
   | 'BOOK_COMPLETED'    // Book marked as complete
   | 'REVIEW_RECEIVED'   // Reader wrote a review on author's book
   | 'COIN_EARNED'       // Author earned coins from reader unlocking chapter
+  | 'BOOK_SUBMITTED'    // Book submitted for review
+  | 'BOOK_APPROVED'     // Book approved by moderator
+  | 'BOOK_REJECTED'     // Book rejected by moderator
   | 'SYSTEM';           // System notice
 
 export interface INotification extends Document {
@@ -24,7 +27,7 @@ export interface INotification extends Document {
 const NotificationSchema = new Schema<INotification>(
   {
     recipient:      { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    type:           { type: String, enum: ['NEW_CHAPTER', 'NEW_FOLLOWER', 'BOOK_COMPLETED', 'REVIEW_RECEIVED', 'COIN_EARNED', 'SYSTEM'], required: true },
+    type:           { type: String, enum: ['NEW_CHAPTER', 'NEW_FOLLOWER', 'BOOK_COMPLETED', 'REVIEW_RECEIVED', 'COIN_EARNED', 'BOOK_SUBMITTED', 'BOOK_APPROVED', 'BOOK_REJECTED', 'SYSTEM'], required: true },
     title:          { type: String, required: true, maxlength: 150 },
     message:        { type: String, required: true, maxlength: 500 },
     isRead:         { type: Boolean, default: false },
