@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/db';
 import User from '@/models/User';
+import '@/models/AuthorProfile'; // MUST be imported so Mongoose registers the schema before .populate() runs
 import { verifyAccessToken } from '@/lib/jwt';
 
 // GET /api/auth/me — returns current user from access token cookie
@@ -29,10 +30,12 @@ export async function GET(req: NextRequest) {
     const authorProfileData = user.authorProfile
       ? {
           penName: (user.authorProfile as any).penName,
+          slug: (user.authorProfile as any).slug || '',
           bio: (user.authorProfile as any).bio,
           verified: (user.authorProfile as any).isVerified || false,
           followers: (user.authorProfile as any).followerCount || 0,
           earnings: (user.authorProfile as any).totalEarnings || (user.authorProfile as any).earnings || 0,
+          profileCompleted: (user.authorProfile as any).profileCompleted || false,
         }
       : null;
 

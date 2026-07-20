@@ -42,7 +42,8 @@ const UserSchema = new Schema<IUser>(
 );
 
 // Indexes
-UserSchema.index({ email: 1 });                        // Primary login lookup
+// Note: email already has a unique index from `unique: true` on the field definition above.
+// Defining it again via UserSchema.index() would create a duplicate — hence it's omitted here.
 UserSchema.index({ googleId: 1 }, { sparse: true });   // OAuth lookup (sparse = skip docs without googleId)
 UserSchema.index({ role: 1 });                         // Admin panel user list filter
 UserSchema.index({ isActive: 1 });                     // Filter suspended/inactive users
