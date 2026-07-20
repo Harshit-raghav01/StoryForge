@@ -1,6 +1,7 @@
 import connectToDatabase from '@/lib/db';
 import User from '@/models/User';
 import AuthorProfile from '@/models/AuthorProfile';
+import { slugify } from '@/lib/slugify';
 import { z } from 'zod';
 import mongoose from 'mongoose';
 
@@ -12,15 +13,7 @@ const RESERVED_NAMES = [
   'notifications', 'profile', 'profiles', 'becoming-author', 'become-author', 'create-book'
 ];
 
-export function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/_/g, '-')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/[^a-z0-9-]/g, '');
-}
+// slugify is now imported from @/lib/slugify (shared utility)
 
 // Server-side onboarding schema matching the client validation exactly
 export const AuthorOnboardSchema = z.object({
