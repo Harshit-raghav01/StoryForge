@@ -47,7 +47,7 @@ export default function BecomeAuthorPage() {
         return;
       }
 
-      becomeAuthor(json.authorProfile.penName, json.authorProfile.bio);
+      becomeAuthor(json.authorProfile.penName, json.authorProfile.bio, json.authorProfile.slug, json.authorProfile.profileCompleted);
       setSuccess(true);
     } catch (err) {
       setApiError('Network error. Please check your connection and try again.');

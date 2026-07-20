@@ -9,17 +9,19 @@ export interface User {
   coinBalance: number;
   authorProfile: {
     penName: string;
+    slug?: string;
     bio: string;
     verified: boolean;
     followers: number;
     earnings: number;
+    profileCompleted?: boolean;
   } | null;
 }
 
 interface UserState {
   currentUser: User | null;
   setCurrentUser: (user: User | null) => void;
-  becomeAuthor: (penName: string, bio: string) => void;
+  becomeAuthor: (penName: string, bio: string, slug?: string, profileCompleted?: boolean) => void;
   updateBalance: (amount: number) => void;
   logout: () => void;
 }
@@ -27,17 +29,19 @@ interface UserState {
 export const useUserStore = create<UserState>((set) => ({
   currentUser: null,
   setCurrentUser: (user) => set({ currentUser: user }),
-  becomeAuthor: (penName, bio) => set((state) => {
+  becomeAuthor: (penName, bio, slug, profileCompleted) => set((state) => {
     if (!state.currentUser) return state;
     return {
       currentUser: {
         ...state.currentUser,
         authorProfile: {
           penName,
+          slug,
           bio,
           verified: false,
           followers: 0,
           earnings: 0,
+          profileCompleted: profileCompleted ?? false,
         },
       },
     };

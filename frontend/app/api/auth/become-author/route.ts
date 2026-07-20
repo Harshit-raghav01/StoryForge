@@ -40,7 +40,8 @@ export async function POST(req: NextRequest) {
 
     // 6. Handle Known Business Rule Violations
     if (
-      error.message === 'Pen name is already taken' ||
+      error.message === 'Pen name or its URL slug is already taken' ||
+      error.message === 'Pen name is a reserved term' ||
       error.message === 'User already has an author profile' ||
       error.message === 'User not found'
     ) {

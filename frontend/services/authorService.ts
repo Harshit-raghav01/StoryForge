@@ -4,6 +4,24 @@ import AuthorProfile from '@/models/AuthorProfile';
 import { z } from 'zod';
 import mongoose from 'mongoose';
 
+// List of URL paths and system identifiers reserved to prevent user spoofing or route hijack
+const RESERVED_NAMES = [
+  'admin', 'dashboard', 'api', 'login', 'register', 'books', 'storyforge', 'auth',
+  'user', 'settings', 'genre', 'genres', 'category', 'categories', 'wallet', 'coins',
+  'browse', 'privacy', 'terms', 'about', 'support', 'help', 'search', 'notification',
+  'notifications', 'profile', 'profiles', 'becoming-author', 'become-author', 'create-book'
+];
+
+export function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/_/g, '-')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/[^a-z0-9-]/g, '');
+}
+
 // Server-side onboarding schema matching the client validation exactly
 export const AuthorOnboardSchema = z.object({
   penName: z.string()
@@ -24,6 +42,12 @@ export async function onboardAuthor(userId: string, input: AuthorOnboardInput) {
   // 2. Validate using Zod
   const validatedData = AuthorOnboardSchema.parse(input);
 
+  // 2b. Generate slug and check against reserved names
+  const slug = slugify(validatedData.penName);
+  if (RESERVED_NAMES.includes(slug)) {
+    throw new Error('Pen name is a reserved term');
+  }
+
   // 3. Start a Mongoose Session/Transaction for atomicity
   const session = await mongoose.startSession();
   session.startTransaction();
@@ -40,13 +64,16 @@ export async function onboardAuthor(userId: string, input: AuthorOnboardInput) {
       throw new Error('User already has an author profile');
     }
 
-    // 6. Check if penName is already taken (case-insensitive check)
-    const existingPenName = await AuthorProfile.findOne({
-      penName: { $regex: new RegExp(`^${validatedData.penName.trim()}$`, 'i') }
+    // 6. Check if penName or slug is already taken (case-insensitive check)
+    const existingProfile = await AuthorProfile.findOne({
+      $or: [
+        { penName: { $regex: new RegExp(`^${validatedData.penName.trim()}$`, 'i') } },
+        { slug }
+      ]
     }).session(session);
 
-    if (existingPenName) {
-      throw new Error('Pen name is already taken');
+    if (existingProfile) {
+      throw new Error('Pen name or its URL slug is already taken');
     }
 
     // 7. Create the AuthorProfile document
@@ -55,12 +82,14 @@ export async function onboardAuthor(userId: string, input: AuthorOnboardInput) {
         {
           userId: user._id,
           penName: validatedData.penName.trim(),
+          slug,
           bio: validatedData.bio.trim(),
           isVerified: false,
           followerCount: 0,
           totalEarnings: 0,
           totalBooks: 0,
           status: 'ACTIVE',
+          profileCompleted: false,
         }
       ],
       { session }
@@ -78,10 +107,12 @@ export async function onboardAuthor(userId: string, input: AuthorOnboardInput) {
       success: true,
       authorProfile: {
         penName: newProfile.penName,
+        slug: newProfile.slug,
         bio: newProfile.bio,
         verified: newProfile.isVerified,
         followers: newProfile.followerCount,
         earnings: newProfile.totalEarnings,
+        profileCompleted: newProfile.profileCompleted,
       }
     };
   } catch (error) {
